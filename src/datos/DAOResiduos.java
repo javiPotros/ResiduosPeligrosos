@@ -4,12 +4,10 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
-import dominio.Quimico;
 import dominio.Residuo;
 import interfaces.IConexionBD;
 import interfaces.iDAOResiduos;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -64,9 +62,9 @@ public class DAOResiduos implements iDAOResiduos{
     }
 
     @Override
-    public List<Residuo> consultarPorProductor(String productor) {
+    public List<Residuo> consultarPorProductor(ObjectId idProductora) {
         MongoCollection<Residuo> coleccion = this.getColleccion();
-        FindIterable iterable = coleccion.find(eq("productora.nombre",productor));
+        FindIterable iterable = coleccion.find(eq("idProductora",idProductora));
         List<Residuo> residuos = new ArrayList<>();
 
         iterable.into(residuos);

@@ -1,6 +1,5 @@
 package presentacion;
 
-import dominio.Productora;
 import dominio.Traslado;
 import dominio.Usuario;
 import java.util.List;
@@ -48,7 +47,7 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
             fila[1] = traslado.getFechaSolicitada();
             fila[2] = traslado.getResiduo().getNombre();
             fila[3] = traslado.getCantidad();
-            fila[4] = traslado.getProductora();
+            fila[4] = fNegocios.consultarUsuario(traslado.getResiduo().getIdProductora()).getNombre();
             modeloTabla.addRow(fila);
         });
     }
@@ -162,8 +161,8 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
                         "Información UI", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-                JOptionPane.showMessageDialog(this, "Se debe de seleccionar un traslado",
-                        "Información Registro Traslados", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se debe de seleccionar un traslado",
+                    "Información Registro Traslados", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

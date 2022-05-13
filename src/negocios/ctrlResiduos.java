@@ -30,7 +30,7 @@ public class ctrlResiduos {
         return daoResiduos.consultarTodos();
     }
     
-    public List<Residuo> consultarPorProductor(String productor){
-       return  daoResiduos.consultarPorProductor(productor);
+    public List<Residuo> consultarPorProductor(ObjectId idProductora){
+       return  daoResiduos.consultarPorProductor(idProductora);
     }
 }

@@ -62,8 +62,8 @@ public class FNegocios implements iNegocios {
     }
 
     @Override
-    public List<Residuo> consultarResiduosPorProductor(String productor) {
-        return cResiduos.consultarPorProductor(productor);
+    public List<Residuo> consultarResiduosPorProductor(ObjectId idProductora) {
+        return cResiduos.consultarPorProductor(idProductora);
     }
 
     @Override

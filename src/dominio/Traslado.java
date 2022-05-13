@@ -1,7 +1,6 @@
 package dominio;
 
 import java.time.LocalDate;
-import java.util.GregorianCalendar;
 import java.util.Objects;
 import org.bson.types.ObjectId;
 
@@ -15,8 +14,8 @@ public class Traslado {
     private Float cantidad;
     private Float kmRecorridos;
     private Double costo;
+    private String estado;
     private Residuo residuo;
-    private Productora productora;
 
     public Traslado() {
     }
@@ -25,9 +24,8 @@ public class Traslado {
         this.id = id;
     }
 
-    
-    public Traslado(ObjectId idTraslado, Integer numTransportes, String destino, LocalDate fechaSolicitada, LocalDate fechaLlegada, Float cantidad, Float kmRecorridos, Double costo, Residuo residuo, Productora productora) {
-        this.id = idTraslado;
+    public Traslado(ObjectId id, Integer numTransportes, String destino, LocalDate fechaSolicitada, LocalDate fechaLlegada, Float cantidad, Float kmRecorridos, Double costo, String estado, Residuo residuo) {
+        this.id = id;
         this.numTransportes = numTransportes;
         this.destino = destino;
         this.fechaSolicitada = fechaSolicitada;
@@ -35,10 +33,10 @@ public class Traslado {
         this.cantidad = cantidad;
         this.kmRecorridos = kmRecorridos;
         this.costo = costo;
+        this.estado = estado;
         this.residuo = residuo;
-        this.productora = productora;
     }
-    
+
     public ObjectId getId() {
         return id;
     }
@@ -103,6 +101,14 @@ public class Traslado {
         this.costo = costo;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     public Residuo getResiduo() {
         return residuo;
     }
@@ -111,14 +117,6 @@ public class Traslado {
         this.residuo = residuo;
     }
 
-    public Productora getProductora() {
-        return productora;
-    }
-
-    public void setProductora(Productora productora) {
-        this.productora = productora;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -146,7 +144,7 @@ public class Traslado {
 
     @Override
     public String toString() {
-        return "Traslado{" + "idTraslado=" + id + ", numTransportes=" + numTransportes + ", destino=" + destino + ", fechaSolicitada=" + fechaSolicitada + ", fechaLlegada=" + fechaLlegada + ", cantidad=" + cantidad + ", kmRecorridos=" + kmRecorridos + ", costo=" + costo + ", residuo=" + residuo + '}';
+        return "Traslado{" + "id=" + id + ", numTransportes=" + numTransportes + ", destino=" + destino + ", fechaSolicitada=" + fechaSolicitada + ", fechaLlegada=" + fechaLlegada + ", cantidad=" + cantidad + ", kmRecorridos=" + kmRecorridos + ", costo=" + costo + ", estado=" + estado + ", residuo=" + residuo + '}';
     }
 
 }

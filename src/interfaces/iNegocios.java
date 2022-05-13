@@ -27,7 +27,7 @@ public interface iNegocios {
     
     public List<Residuo> consultarResiduos();
 
-    public List<Residuo> consultarResiduosPorProductor(String productor);
+    public List<Residuo> consultarResiduosPorProductor(ObjectId idProductora);
 
     public void agregarTraslado(Traslado traslado);
 

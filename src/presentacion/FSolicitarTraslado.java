@@ -5,12 +5,9 @@ import dominio.Traslado;
 import dominio.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import negocios.FNegocios;
 import org.bson.types.ObjectId;
@@ -19,32 +16,31 @@ import org.bson.types.ObjectId;
  *
  * @author Equipo 1
  */
-public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
+public class FSolicitarTraslado extends javax.swing.JInternalFrame {
 
     private FNegocios fNegocios;
     private List<Residuo> listaResiduos;
     private List<Traslado> listaResiduosSeleccionados;
     private Usuario usuario;
-    
+
     public FSolicitarTraslado(FNegocios fNegocios, Usuario usuario) {
         initComponents();
         setClosable(true);
-        
+
         this.fNegocios = fNegocios;
         this.usuario = usuario;
         this.txtProductor.setText(usuario.getNombre());
         try {
-            this.listaResiduos = fNegocios.consultarResiduosPorProductor(usuario.getNombre());
+            this.listaResiduos = fNegocios.consultarResiduosPorProductor(usuario.getId());
         } catch (Exception e) {
             mostrarErrorConsulta();
             return;
         }
         this.listaResiduosSeleccionados = new ArrayList<>();
         this.llenarTablaResiduos();
-        
+
     }
 
-    
     private void llenarTablaResiduos() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblResiduos.getModel();
         modeloTabla.setRowCount(0);
@@ -91,7 +87,7 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
             return null;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -111,12 +107,12 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        dpFecha = new com.github.lgooddatepicker.components.DatePicker();
+        pckFecha = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblInformacionResiduo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblInformacionResiduo.setText("Información de traslado");
+        lblInformacionResiduo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         tblResiduos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,25 +139,25 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
         });
         pnlResiduos.setViewportView(tblResiduos);
 
-        lblBuscadorQuimicos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblBuscadorQuimicos.setText("Residuos registrados");
+        lblBuscadorQuimicos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
 
-        lblProductor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblProductor.setText("Productor");
+        lblProductor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblQuimicosSeleccionados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblQuimicosSeleccionados.setText("Residuos seleccionados");
+        lblQuimicosSeleccionados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCodigo.setText("Fecha");
+        lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         tblResiduosSeleccionados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -190,8 +186,8 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
 
         txtProductor.setEditable(false);
 
-        btnSolicitar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSolicitar.setText("Solicitar");
+        btnSolicitar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnSolicitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSolicitarActionPerformed(evt);
@@ -230,10 +226,10 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblCodigo)
                                     .addComponent(lblProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dpFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                    .addComponent(txtProductor)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pckFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(btnSolicitar)
@@ -286,7 +282,7 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCodigo)
-                            .addComponent(dpFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pckFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCancelar)
@@ -305,12 +301,12 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         if (validarCampos()) {
-           for(Traslado traslado:listaResiduosSeleccionados){
-               traslado.setFechaSolicitada(dpFecha.getDate());
-               this.fNegocios.agregarTraslado(traslado);
-           }
-        JOptionPane.showMessageDialog(this, "Se ha solcitado el traslado con éxito", "Solicitar traslado", JOptionPane.INFORMATION_MESSAGE);
-        this.limpiarFormulario();
+            for (Traslado traslado : listaResiduosSeleccionados) {
+                traslado.setFechaSolicitada(pckFecha.getDate());
+                this.fNegocios.agregarTraslado(traslado);
+            }
+            JOptionPane.showMessageDialog(this, "Se ha solcitado el traslado con éxito", "Solicitar traslado", JOptionPane.INFORMATION_MESSAGE);
+            this.limpiarFormulario();
         }
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
@@ -323,19 +319,18 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JToggleButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSolicitar;
-    private com.github.lgooddatepicker.components.DatePicker dpFecha;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblBuscadorQuimicos;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblInformacionResiduo;
     private javax.swing.JLabel lblProductor;
     private javax.swing.JLabel lblQuimicosSeleccionados;
+    private com.github.lgooddatepicker.components.DatePicker pckFecha;
     private javax.swing.JScrollPane pnlResiduos;
     private javax.swing.JScrollPane pnlResiduosSeleccionados;
     private javax.swing.JTable tblResiduos;
@@ -348,66 +343,78 @@ public class FSolicitarTraslado extends  javax.swing.JInternalFrame {
     }
 
     private void agregarResiduo() {
-
-   
-        String[] s = {"Kg","L"}; 
+        String[] s = {"Kg", "L"};
         JComboBox medida = new JComboBox(s);
         Object[] items = {medida};
 
         ObjectId id = getResiduoSeleccionadoBuscados();
-        
         if (id != null) {
             String cantidad = JOptionPane.showInputDialog(this, items, "Introduzca una cantidad", JOptionPane.OK_CANCEL_OPTION);
-            if (cantidad != null) {
-                Traslado traslado = new Traslado();
-                traslado.setCantidad(Float.parseFloat(cantidad));
-                Residuo residuo = fNegocios.consultarResiduo(id);
-                traslado.setResiduo(residuo);
+            try {
+                if (cantidad != null) {
+                    if (Float.parseFloat(cantidad) > 0) {
+                        Traslado traslado = new Traslado();
+                        traslado.setCantidad(Float.parseFloat(cantidad));
+                        Residuo residuo = fNegocios.consultarResiduo(id);
+                        traslado.setResiduo(residuo);
+                        traslado.setFechaSolicitada(pckFecha.getDate());
+                        traslado.setEstado("pendiente");
 
-                if (residuo != null) {
-                    listaResiduosSeleccionados.add(traslado);
-                    listaResiduos.remove(residuo);
+                        if (residuo != null) {
+                            listaResiduosSeleccionados.add(traslado);
+                            listaResiduos.remove(fNegocios.consultarResiduo(id));
+                        }
+                        this.llenarTablaResiduos();
+                        this.llenarTablaResiduosSeleccionados();
+                    } else {
+                        throw new NumberFormatException();
+                    }
                 }
-                this.llenarTablaResiduos();
-                this.llenarTablaResiduosSeleccionados();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Se debe introducir una cantidad valida",
+                        "Error Solicitar Traslado", JOptionPane.ERROR_MESSAGE);
             }
 
         }
 
-        
-        
     }
 
     private void eliminarResiduo() {
         ObjectId id = getResiduoSeleccionadoAgregados();
-        
-        if(id!=null){
+
+        if (id != null) {
             Residuo residuo = fNegocios.consultarResiduo(id);
             if (residuo != null) {
-                    listaResiduosSeleccionados.remove(residuo);
-                    listaResiduos.add(residuo);
-                    this.llenarTablaResiduos();
-                    this.llenarTablaResiduosSeleccionados();
+                listaResiduosSeleccionados.remove(residuo);
+                listaResiduos.add(residuo);
+                this.llenarTablaResiduos();
+                this.llenarTablaResiduosSeleccionados();
             }
         }
 
     }
 
     private boolean validarCampos() {
-       if(listaResiduosSeleccionados.isEmpty()){
+        if (this.pckFecha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Se debe seleccionar una fecha para la solicitud",
+                    "Error Solicitar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (listaResiduosSeleccionados.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay residuos seleccionados", "Error Solicitar traslado", JOptionPane.ERROR_MESSAGE);
             return false;
-       } 
-       LocalDate fecha = dpFecha.getDate();
-       if(fecha.isBefore(LocalDate.now())){
-           JOptionPane.showMessageDialog(this, "La fecha no es válida", "Error Solicitar traslado", JOptionPane.ERROR_MESSAGE);
-           return false;
-       }
+        }
+        LocalDate fecha = pckFecha.getDate();
+        if (fecha.isBefore(LocalDate.now())) {
+            JOptionPane.showMessageDialog(this, "La fecha no puede ser anterior", "Error Solicitar traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         return true;
     }
 
     private void limpiarFormulario() {
-        dpFecha.setDate(null);
+        pckFecha.setDate(null);
         listaResiduosSeleccionados.clear();
         llenarTablaResiduosSeleccionados();
         this.listaResiduos = fNegocios.consultarResiduos();

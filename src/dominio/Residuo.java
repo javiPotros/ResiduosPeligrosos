@@ -12,27 +12,27 @@ public class Residuo {
     private String nombre;
     private String codigo;
     private Tratamiento tratamiento;
-    private Productora productora;
+    private ObjectId idProductora;
     private List<Quimico> quimicos;
 
     public Residuo() {
         quimicos = new ArrayList<>();
     }
 
-    public Residuo(ObjectId id, String nombre, String codigo, Productora productora) {
+    public Residuo(ObjectId id, String nombre, String codigo, ObjectId idProductora) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
-        this.productora = productora;
+        this.idProductora = idProductora;
         this.quimicos = new ArrayList<>();
     }
 
-    public Residuo(ObjectId id, String nombre, String codigo, Tratamiento tratamiento, Productora productora) {
+    public Residuo(ObjectId id, String nombre, String codigo, Tratamiento tratamiento, ObjectId idProductora) {
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
         this.tratamiento = tratamiento;
-        this.productora = productora;
+        this.idProductora = idProductora;
         quimicos = new ArrayList<>();
     }
 
@@ -71,12 +71,12 @@ public class Residuo {
         this.tratamiento = tratamiento;
     }
 
-    public Productora getProductora() {
-        return productora;
+    public ObjectId getIdProductora() {
+        return idProductora;
     }
 
-    public void setProductora(Productora productora) {
-        this.productora = productora;
+    public void setIdProductora(ObjectId idProductora) {
+        this.idProductora = idProductora;
     }
 
     public List<Quimico> getQuimicos() {
@@ -114,7 +114,7 @@ public class Residuo {
 
     @Override
     public String toString() {
-        return "Residuo{" + "id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", tratamiento=" + tratamiento + ", productora=" + productora + ", quimicos=" + quimicos + '}';
+        return "Residuo{" + "id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", tratamiento=" + tratamiento + ", idProductora=" + idProductora + ", quimicos=" + quimicos + '}';
     }
 
 }

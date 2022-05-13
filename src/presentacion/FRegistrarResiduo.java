@@ -1,6 +1,5 @@
 package presentacion;
 
-import dominio.Productora;
 import dominio.Quimico;
 import dominio.Residuo;
 import dominio.Usuario;
@@ -18,14 +17,14 @@ import org.bson.types.ObjectId;
  * 
  * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
  */
-public class FRegistroResiduo extends javax.swing.JInternalFrame {
+public class FRegistrarResiduo extends javax.swing.JInternalFrame {
 
     private FNegocios fNegocios;
     private List<Quimico> listaQuimicos;
     private List<Quimico> listaQuimicosSeleccionados;
     private Usuario usuario;
 
-    public FRegistroResiduo(FNegocios fNegocios, Usuario usuario) {
+    public FRegistrarResiduo(FNegocios fNegocios, Usuario usuario) {
         initComponents();
 
         this.fNegocios = fNegocios;
@@ -409,8 +408,7 @@ public class FRegistroResiduo extends javax.swing.JInternalFrame {
             residuo.setNombre(txtNombre.getText());
             residuo.setCodigo(txtCodigo.getText());
             residuo.setQuimicos(listaQuimicosSeleccionados);
-            residuo.setProductora(new Productora(usuario.getNombre(),
-                    usuario.getDireccion()));
+            residuo.setIdProductora(usuario.getId());
             this.fNegocios.agregarResiduo(residuo);
             JOptionPane.showMessageDialog(this, "El residuo se ha agregado con éxito", "Agregar Residuo", JOptionPane.INFORMATION_MESSAGE);
             this.limpiarFormulario();

@@ -14,7 +14,7 @@ public class FPrincipalProductora extends javax.swing.JFrame {
 
     ConexionBD conexionBD;
     FNegocios fNegocios;
-    FRegistroResiduo fRegistroResiduo;
+    FRegistrarResiduo fRegistroResiduo;
     FSolicitarTraslado fSolicitarTraslado;
     Usuario usuario;
 
@@ -125,7 +125,7 @@ public class FPrincipalProductora extends javax.swing.JFrame {
 
     private void mostrarPantallaRegistroResiduos(java.awt.event.ActionEvent evt) {                                                 
         if (fRegistroResiduo == null||!fRegistroResiduo.isVisible()) {
-            fRegistroResiduo = new FRegistroResiduo(fNegocios, usuario);
+            fRegistroResiduo = new FRegistrarResiduo(fNegocios, usuario);
             desktop.add(fRegistroResiduo);
             fRegistroResiduo.setVisible(true);
         } else {

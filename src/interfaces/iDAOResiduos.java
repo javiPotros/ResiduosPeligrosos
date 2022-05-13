@@ -16,5 +16,5 @@ public interface iDAOResiduos {
     
     public Residuo consultar(ObjectId id); 
 
-    public List<Residuo> consultarPorProductor(String productor);
+    public List<Residuo> consultarPorProductor(ObjectId idProductora);
 }

@@ -10,7 +10,7 @@ public class FPrincipalTransportadora extends javax.swing.JFrame {
 
     ConexionBD conexionBD;
     FNegocios fNegocios;
-    FRegistroResiduo fRegistroResiduo;
+    FRegistrarResiduo fRegistroResiduo;
     FSolicitarTraslado fSolicitarTraslado;
     FRegistrarTraslado fRegistrarTraslado;
     Usuario usuario;

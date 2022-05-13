@@ -33,10 +33,10 @@
                                   <Component id="lblCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblProductor" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="dpFecha" pref="168" max="32767" attributes="0"/>
-                                  <Component id="txtProductor" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtProductor" min="-2" pref="168" max="-2" attributes="0"/>
+                                  <Component id="pckFecha" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -108,7 +108,7 @@
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dpFecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="pckFecha" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -252,7 +252,7 @@
         <Property name="orientation" type="int" value="1"/>
       </Properties>
     </Component>
-    <Component class="com.github.lgooddatepicker.components.DatePicker" name="dpFecha">
+    <Component class="com.github.lgooddatepicker.components.DatePicker" name="pckFecha">
     </Component>
   </SubComponents>
 </Form>
