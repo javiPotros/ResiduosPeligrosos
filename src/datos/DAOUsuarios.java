@@ -33,15 +33,15 @@ public class DAOUsuarios implements iDAOUsuarios {
     @Override
     public Usuario consultar(ObjectId id) {
         MongoCollection<Usuario> coleccion = this.getColleccion();
-        List<Usuario> listaQuimicos = new LinkedList<>();
+        List<Usuario> listaUsuarios = new LinkedList<>();
         List<Document> etapas = new ArrayList<>();
 
         etapas.add(new Document(
                 "$match", new Document()
                         .append("_id", id)));
 
-        coleccion.aggregate(etapas).into(listaQuimicos);
-        return listaQuimicos.get(0);
+        coleccion.aggregate(etapas).into(listaUsuarios);
+        return listaUsuarios.get(0);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
             fila[1] = traslado.getFechaSolicitada();
             fila[2] = traslado.getResiduo().getNombre();
             fila[3] = traslado.getCantidad();
-            fila[4] = fNegocios.consultarUsuario(traslado.getResiduo().getIdProductora()).getNombre();
+            fila[4] = this.fNegocios.consultarUsuario(traslado.getResiduo().getIdProductora()).getNombre();
             modeloTabla.addRow(fila);
         });
     }
@@ -84,7 +84,7 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Id Traslado", "Fecha Solicitada", "Residuo", "Cantidad", "Productor"
+                "Id Traslado", "Fecha Solicitada", "Residuo", "Cantidad", "Productora"
             }
         ) {
             Class[] types = new Class [] {

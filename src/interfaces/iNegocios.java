@@ -31,7 +31,7 @@ public interface iNegocios {
 
     public void agregarTraslado(Traslado traslado);
 
-    public void actualizarTraslado(Document traslado, String campo, Object valor);
+    public void actualizarTraslado(Traslado traslado);
 
     public void actualizarTrasladoPendiente(Document traslado, String residuo);
 

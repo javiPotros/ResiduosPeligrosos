@@ -1,6 +1,7 @@
 package dominio;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import org.bson.types.ObjectId;
 
@@ -16,6 +17,7 @@ public class Traslado {
     private Double costo;
     private String estado;
     private Residuo residuo;
+    private List<ObjectId> traslados;
 
     public Traslado() {
     }
@@ -24,7 +26,7 @@ public class Traslado {
         this.id = id;
     }
 
-    public Traslado(ObjectId id, Integer numTransportes, String destino, LocalDate fechaSolicitada, LocalDate fechaLlegada, Float cantidad, Float kmRecorridos, Double costo, String estado, Residuo residuo) {
+    public Traslado(ObjectId id, Integer numTransportes, String destino, LocalDate fechaSolicitada, LocalDate fechaLlegada, Float cantidad, Float kmRecorridos, Double costo, String estado, Residuo residuo, List<ObjectId> traslados) {
         this.id = id;
         this.numTransportes = numTransportes;
         this.destino = destino;
@@ -35,6 +37,7 @@ public class Traslado {
         this.costo = costo;
         this.estado = estado;
         this.residuo = residuo;
+        this.traslados = traslados;
     }
 
     public ObjectId getId() {
@@ -115,6 +118,14 @@ public class Traslado {
 
     public void setResiduo(Residuo residuo) {
         this.residuo = residuo;
+    }
+
+    public List<ObjectId> getTraslados() {
+        return traslados;
+    }
+
+    public void setTraslados(List<ObjectId> traslados) {
+        this.traslados = traslados;
     }
 
     @Override

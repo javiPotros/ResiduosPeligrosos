@@ -72,8 +72,8 @@ public class FNegocios implements iNegocios {
     }
 
     @Override
-    public void actualizarTraslado(Document traslado, String campo, Object valor) {
-        cTraslados.actualizar(traslado, campo, valor);
+    public void actualizarTraslado(Traslado traslado) {
+        cTraslados.actualizar(traslado);
     }
 
     @Override

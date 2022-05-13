@@ -13,7 +13,7 @@ public interface iDAOTraslados {
     
     public void agregar(Traslado traslado);
     
-    public void actualizar(Document traslado, String campo, Object valor);
+    public void actualizar(Traslado traslado);
     
     public void actualizarResiduos(Document traslado, String residuo);
     

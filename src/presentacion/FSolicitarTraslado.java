@@ -5,6 +5,7 @@ import dominio.Traslado;
 import dominio.Usuario;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -385,13 +386,17 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
         if (id != null) {
             Residuo residuo = fNegocios.consultarResiduo(id);
             if (residuo != null) {
-                listaResiduosSeleccionados.remove(residuo);
-                listaResiduos.add(residuo);
-                this.llenarTablaResiduos();
-                this.llenarTablaResiduosSeleccionados();
+                for (Iterator<Traslado> i = listaResiduosSeleccionados.iterator(); i.hasNext();) {
+                    Traslado tras = i.next();
+                    if (tras.getResiduo().getId() == id) {
+                        this.listaResiduos.add(tras.getResiduo());
+                        i.remove();
+                        this.llenarTablaResiduos();
+                        this.llenarTablaResiduosSeleccionados();
+                    }
+                }
             }
         }
-
     }
 
     private boolean validarCampos() {

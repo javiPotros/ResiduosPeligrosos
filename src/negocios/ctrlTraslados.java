@@ -24,8 +24,8 @@ public class ctrlTraslados {
         daoTraslados.agregar(traslado);
     }
     
-    public void actualizar(Document traslado, String campo, Object valor) {
-        daoTraslados.actualizar(traslado, campo, valor);
+    public void actualizar(Traslado traslado) {
+        daoTraslados.actualizar(traslado);
     }
     
     public void actualizarPendiente(Document traslado, String residuo) {

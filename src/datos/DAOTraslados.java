@@ -4,6 +4,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
+import com.mongodb.client.result.UpdateResult;
 import dominio.Traslado;
 import interfaces.IConexionBD;
 import interfaces.iDAOTraslados;
@@ -39,12 +41,10 @@ public class DAOTraslados implements iDAOTraslados {
     }
 
     @Override
-    public void actualizar(Document traslado, String campo, Object valor) {
-        MongoCollection<Traslado> coleccion = this.getColleccion();
-
-        Bson valorActualizado = new Document(campo, valor);
-        Bson operacion = new Document("$set", valorActualizado);
-        coleccion.updateOne(traslado, operacion);
+    public void actualizar(Traslado traslado) {
+        MongoCollection<Traslado> collection = this.getColleccion();
+        Bson filtro = eq("_id", traslado.getId());
+        collection.replaceOne(filtro, traslado);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class DAOTraslados implements iDAOTraslados {
 
     @Override
     public Traslado consultar(ObjectId id) {
-         MongoCollection<Traslado> coleccion = this.getColleccion();
+        MongoCollection<Traslado> coleccion = this.getColleccion();
         List<Traslado> listaTraslados = new LinkedList<>();
         List<Document> etapas = new ArrayList<>();
 
