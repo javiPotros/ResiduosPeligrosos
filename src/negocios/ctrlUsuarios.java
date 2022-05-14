@@ -31,4 +31,8 @@ public class ctrlUsuarios {
         return daoUsuarios.consultarTodos();
     }
 
+    public List<Usuario> consultarTransportadoras() {
+        return daoUsuarios.consultarTransportadoras();
+    }
+
 }

@@ -4,8 +4,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Updates.set;
-import com.mongodb.client.result.UpdateResult;
 import dominio.Traslado;
 import interfaces.IConexionBD;
 import interfaces.iDAOTraslados;
@@ -82,10 +80,15 @@ public class DAOTraslados implements iDAOTraslados {
     @Override
     public List<Traslado> consultarPendientes() {
         MongoCollection<Traslado> coleccion = this.getColleccion();
-        FindIterable iterable = coleccion.find(eq("pendiente", true));
-        List<Traslado> traslados = new ArrayList<>();
-        iterable.into(traslados);
-        return traslados;
+        List<Traslado> listaTraslados = new LinkedList<>();
+        List<Document> etapas = new ArrayList<>();
+
+        etapas.add(new Document(
+                "$match", new Document()
+                        .append("estado", "pendiente")));
+
+        coleccion.aggregate(etapas).into(listaTraslados);
+        return listaTraslados;
     }
 
 }

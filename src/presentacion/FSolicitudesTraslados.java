@@ -1,6 +1,9 @@
 package presentacion;
 
+import dominio.Traslado;
 import dominio.Usuario;
+import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import negocios.FNegocios;
@@ -14,26 +17,39 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
 
     private FNegocios fNegocios;
     private Usuario usuario;
+    private FSolicitud fSolicitud;
+    private List<Traslado> listaTraslados;
+    private JDesktopPane desktop;
 
-    public FSolicitudesTraslados(FNegocios fNegocios, Usuario usuario) {
+    public FSolicitudesTraslados(FNegocios fNegocios, Usuario usuario, JDesktopPane desktop) {
         initComponents();
 
         this.fNegocios = fNegocios;
         this.usuario = usuario;
+        this.desktop = desktop;
 
-
+        try {
+            this.listaTraslados = fNegocios.consultarTrasladosPendientes();
+        } catch (Exception e) {
+            mostrarErrorConsulta();
+            return;
+        }
+        this.llenarTablaTraslados();
     }
 
-//    private void llenarTablaResiduos() {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblResiduos.getModel();
-//        modeloTabla.setRowCount(0);
-//        listaResiduos.forEach(residuo -> {
-//            Object[] fila = new Object[2];
-//            fila[0] = residuo.getId();
-//            fila[1] = residuo.getNombre();
-//            modeloTabla.addRow(fila);
-//        });
-//    }
+    private void llenarTablaTraslados() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTraslados.getModel();
+        modeloTabla.setRowCount(0);
+        listaTraslados.forEach(traslado -> {
+            Object[] fila = new Object[5];
+            fila[0] = traslado.getId();
+            fila[1] = fNegocios.consultarUsuario(traslado.getResiduo().getIdProductora()).getNombre();
+            fila[2] = traslado.getFechaSolicitada();
+            fila[3] = traslado.getResiduo().getNombre();
+            fila[4] = traslado.getCantidad();
+            modeloTabla.addRow(fila);
+        });
+    }
 
 //    private void llenarTablaResiduosSeleccionados() {
 //        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblSolicitudes.getModel();
@@ -46,11 +62,11 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
 //            modeloTabla.addRow(fila);
 //        });
 //    }
-
-    private ObjectId getResiduoSeleccionadoBuscados() {
-        int indiceFilaSeleccionada = this.tblResiduos.getSelectedRow();
+    
+    private ObjectId getTrasladoSeleccionadoBuscados() {
+        int indiceFilaSeleccionada = this.tblTraslados.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
-            DefaultTableModel modelo = (DefaultTableModel) this.tblResiduos.getModel();
+            DefaultTableModel modelo = (DefaultTableModel) this.tblTraslados.getModel();
             int indiceColumnaId = 0;
             ObjectId idClienteSeleccionado = (ObjectId) modelo.getValueAt(indiceFilaSeleccionada, indiceColumnaId);
             return idClienteSeleccionado;
@@ -70,13 +86,12 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
 //            return null;
 //        }
 //    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         pnlSolicitudes = new javax.swing.JScrollPane();
-        tblResiduos = new javax.swing.JTable();
+        tblTraslados = new javax.swing.JTable();
         lblBuscadorQuimicos = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -84,19 +99,19 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tblResiduos.setModel(new javax.swing.table.DefaultTableModel(
+        tblTraslados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Productor", "Fecha solicitada", "Residuo", "Cantidad"
+                "Id traslado", "Productor", "Fecha solicitada", "Residuo", "Cantidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,7 +122,7 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        pnlSolicitudes.setViewportView(tblResiduos);
+        pnlSolicitudes.setViewportView(tblTraslados);
 
         lblBuscadorQuimicos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblBuscadorQuimicos.setText("Solicitudes");
@@ -156,7 +171,22 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
- 
+        ObjectId idTraslado = getTrasladoSeleccionadoBuscados();
+
+        if (idTraslado != null) {
+            if (fSolicitud == null || !fSolicitud.isVisible()) {
+
+                FSolicitud fSolicitud = new FSolicitud(fNegocios, usuario, idTraslado);
+                desktop.add(fSolicitud);
+                fSolicitud.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se puede abrir la misma ventana dos veces",
+                        "Información UI", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Se debe de seleccionar una solicitud",
+                    "Información Registro Traslados", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
 
@@ -165,17 +195,10 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblBuscadorQuimicos;
     private javax.swing.JScrollPane pnlSolicitudes;
-    private javax.swing.JTable tblResiduos;
+    private javax.swing.JTable tblTraslados;
     // End of variables declaration//GEN-END:variables
 
     private void mostrarErrorConsulta() {
         JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de residuos registrados", "Error Consultar Residuos", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private boolean validarCampos() {
-        return false;
-    }
-
-    private void limpiarFormulario() {
     }
 }

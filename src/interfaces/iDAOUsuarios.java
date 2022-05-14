@@ -15,4 +15,6 @@ public interface iDAOUsuarios {
     public Usuario consultar(String usuario, String contrasena);
 
     public List<Usuario> consultarTodos();
+    
+    public List<Usuario> consultarTransportadoras();
 }

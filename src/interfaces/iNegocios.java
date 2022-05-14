@@ -47,6 +47,8 @@ public interface iNegocios {
 
     public List<Usuario> consultarUsuarios();
     
+    public List<Usuario> consultarUsuariosTransportadoras();
+    
     public List<Transporte> consultarTransportes();
 
 }

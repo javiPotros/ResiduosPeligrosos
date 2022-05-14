@@ -50,10 +50,10 @@ public class FNegocios implements iNegocios {
     public void agregarResiduo(Residuo residuo) {
         cResiduos.agregar(residuo);
     }
-    
+
     @Override
     public Residuo consultarResiduo(ObjectId id) {
-         return cResiduos.consultar(id);
+        return cResiduos.consultar(id);
     }
 
     @Override
@@ -80,10 +80,10 @@ public class FNegocios implements iNegocios {
     public void actualizarTrasladoPendiente(Document traslado, String residuo) {
         cTraslados.actualizarPendiente(traslado, residuo);
     }
-    
+
     @Override
-    public Traslado consultarTraslado(ObjectId id){
-         return cTraslados.consultar(id);
+    public Traslado consultarTraslado(ObjectId id) {
+        return cTraslados.consultar(id);
     }
 
     @Override
@@ -109,6 +109,11 @@ public class FNegocios implements iNegocios {
     @Override
     public List<Usuario> consultarUsuarios() {
         return cUsuarios.consultarTodos();
+    }
+
+    @Override
+    public List<Usuario> consultarUsuariosTransportadoras() {
+        return cUsuarios.consultarTransportadoras();
     }
 
     @Override

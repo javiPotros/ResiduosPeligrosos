@@ -105,7 +105,7 @@ public class FPrincipalAdmin extends javax.swing.JFrame {
        
      private void mostrarPantallaSolicitudesTraslado(java.awt.event.ActionEvent evt) {                                                 
         if (fSolicitarTraslado == null||!fSolicitarTraslado.isVisible()) {
-            fSolicitarTraslado = new FSolicitudesTraslados(fNegocios, usuario);
+            fSolicitarTraslado = new FSolicitudesTraslados(fNegocios, usuario, desktop);
             desktop.add(fSolicitarTraslado);
             fSolicitarTraslado.setVisible(true);
         } else {

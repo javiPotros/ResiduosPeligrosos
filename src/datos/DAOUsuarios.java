@@ -63,4 +63,18 @@ public class DAOUsuarios implements iDAOUsuarios {
         iterable.into(usuarios);
         return usuarios;
     }
+
+    @Override
+    public List<Usuario> consultarTransportadoras() {
+        MongoCollection<Usuario> coleccion = this.getColleccion();
+        List<Usuario> listaUsuarios = new LinkedList<>();
+        List<Document> etapas = new ArrayList<>();
+
+        etapas.add(new Document(
+                "$match", new Document()
+                        .append("tipo", "transportadora")));
+
+        coleccion.aggregate(etapas).into(listaUsuarios);
+        return listaUsuarios;
+    }
 }
