@@ -77,11 +77,6 @@ public class FNegocios implements iNegocios {
     }
 
     @Override
-    public void actualizarTrasladoPendiente(Document traslado, String residuo) {
-        cTraslados.actualizarPendiente(traslado, residuo);
-    }
-
-    @Override
     public Traslado consultarTraslado(ObjectId id) {
         return cTraslados.consultar(id);
     }

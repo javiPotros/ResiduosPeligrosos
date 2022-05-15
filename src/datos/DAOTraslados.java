@@ -31,16 +31,28 @@ public class DAOTraslados implements iDAOTraslados {
         this.basedatos = this.conexionBD.crearConexion();
     }
 
+    /**
+     * Obtiene la colección designada a la dao.
+     * @return Colección de traslados.
+     */
     private MongoCollection<Traslado> getColleccion() {
         return this.basedatos.getCollection("traslados", Traslado.class);
     }
 
+    /**
+     * Agrega un traslado.
+     * @param traslado Traslado a agregar.
+     */
     @Override
     public void agregar(Traslado traslado) {
         MongoCollection<Traslado> coleccion = this.getColleccion();
         coleccion.insertOne(traslado);
     }
 
+    /**
+     * Actualiza un traslado.
+     * @param traslado Traslado a actualizar.
+     */
     @Override
     public void actualizar(Traslado traslado) {
         MongoCollection<Traslado> collection = this.getColleccion();
@@ -48,15 +60,11 @@ public class DAOTraslados implements iDAOTraslados {
         collection.replaceOne(filtro, traslado);
     }
 
-    @Override
-    public void actualizarResiduos(Document traslado, String residuo) {
-        MongoCollection<Traslado> coleccion = this.getColleccion();
-
-        Bson valorActualizado = new Document("residuos", residuo);
-        Bson operacion = new Document("$pull", valorActualizado);
-        coleccion.updateOne(traslado, operacion);
-    }
-
+    /**
+     * Consulta un traslado en específico.
+     * @param id Id del traslado a buscar.
+     * @return Traslado buscado.
+     */
     @Override
     public Traslado consultar(ObjectId id) {
         MongoCollection<Traslado> coleccion = this.getColleccion();
@@ -71,6 +79,10 @@ public class DAOTraslados implements iDAOTraslados {
         return listaTraslados.get(0);
     }
 
+    /**
+     * Consulta todos los traslados.
+     * @return Lista con todos los traslados.
+     */
     @Override
     public List<Traslado> consultarTodos() {
         MongoCollection<Traslado> coleccion = this.getColleccion();
@@ -80,6 +92,10 @@ public class DAOTraslados implements iDAOTraslados {
         return traslados;
     }
 
+    /**
+     * Consulta todos los traslados que se encuentran pendientes.
+     * @return Lista con todos los traslados pendientes.
+     */
     @Override
     public List<Traslado> consultarPendientes() {
         MongoCollection<Traslado> coleccion = this.getColleccion();
@@ -94,6 +110,11 @@ public class DAOTraslados implements iDAOTraslados {
         return listaTraslados;
     }
     
+    /**
+     * Consulta todos los traslados que se encuentran asignados de una transportadora específica.
+     * @param idTransportadora Id de la transportadora asociada.
+     * @return Lista con todos los traslados asignados a una transportadora.
+     */
     @Override
     public List<Traslado> consultarAsignados(ObjectId idTransportadora) {
         MongoCollection<Traslado> coleccion = this.getColleccion();

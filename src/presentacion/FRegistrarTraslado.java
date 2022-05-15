@@ -9,6 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import negocios.FNegocios;
 import org.bson.types.ObjectId;
 
+/**
+ * Formulario para comenzar a registrar un residuo.
+ */
 public class FRegistrarTraslado extends javax.swing.JInternalFrame {
 
     private FNegocios fNegocios;
@@ -17,6 +20,13 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
     private JDesktopPane desktop;
     private List<Traslado> listaTraslados;
 
+    /**
+     * Constructor por defecto del formulario.
+     * @param fNegocios Referencia a la fachada de negocios.
+     * @param usuario Usuario logueado al formulario.
+     * @param desktop Panel de escritorio de la pantalla principal.
+     * @param fTransporte Formulario en donde se procedera con el registro del traslado.
+     */
     public FRegistrarTraslado(FNegocios fNegocios, Usuario usuario, JDesktopPane desktop, FTransporte fTransporte) {
         initComponents();
 
@@ -35,10 +45,16 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
         this.llenarTablaTraslados();
     }
 
+    /**
+     * Muestra un error en la consulta en caso de que exista.
+     */
     private void mostrarErrorConsulta() {
         JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de traslados solicitados", "Error Consultar Traslados", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Llena la tabla de los traslados.
+     */
     private void llenarTablaTraslados() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTraslados.getModel();
         modeloTabla.setRowCount(0);
@@ -53,7 +69,11 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
         });
     }
 
-    private ObjectId getResiduoSeleccionadoBuscados() {
+    /**
+     * Devuelve el id del traslado seleccionado.
+     * @return Id del traslado seleccionado.
+     */
+    private ObjectId getTrasladoSeleccionadoBuscado() {
         int indiceFilaSeleccionada = this.tblTraslados.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
             DefaultTableModel modelo = (DefaultTableModel) this.tblTraslados.getModel();
@@ -148,8 +168,11 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Botón de registrar.
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        ObjectId idTraslado = getResiduoSeleccionadoBuscados();
+        ObjectId idTraslado = getTrasladoSeleccionadoBuscado();
 
         if (idTraslado != null) {
             if (fTransporte == null || !fTransporte.isVisible()) {

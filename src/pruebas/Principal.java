@@ -3,11 +3,14 @@ package pruebas;
 import presentacion.FIniciarSesion;
 
 /**
- *
- * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
+ * Clase principal de la aplicación.
  */
 public class Principal {
 
+    /**
+     * Método main de la aplicación.
+     * @param args 
+     */
     public static void main(String[] args) {
         
         FIniciarSesion fIniciarSesion = new FIniciarSesion();

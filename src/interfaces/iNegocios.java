@@ -33,8 +33,6 @@ public interface iNegocios {
 
     public void actualizarTraslado(Traslado traslado);
 
-    public void actualizarTrasladoPendiente(Document traslado, String residuo);
-
     public List<Traslado> consultarTraslados();
     
     public Traslado consultarTraslado(ObjectId id);

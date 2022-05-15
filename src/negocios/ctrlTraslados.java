@@ -28,10 +28,6 @@ public class ctrlTraslados {
         daoTraslados.actualizar(traslado);
     }
     
-    public void actualizarPendiente(Document traslado, String residuo) {
-        daoTraslados.actualizarResiduos(traslado, residuo);
-    }
-    
     public Traslado consultar(ObjectId id){
         return daoTraslados.consultar(id);
     }

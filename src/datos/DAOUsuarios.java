@@ -13,23 +13,35 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 /**
- *
- * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
+ * Clase de acceso a datos con respecto a los usuarios.
  */
 public class DAOUsuarios implements iDAOUsuarios {
 
     private MongoDatabase basedatos;
     private IConexionBD conexionBD;
 
+    /**
+     * Constructor por defecto de la clase de acceso a datos.
+     * @param conexionBD Conexión a la base de datos.
+     */
     public DAOUsuarios(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
         this.basedatos = this.conexionBD.crearConexion();
     }
 
+    /**
+     * Obtiene la colección designada a la dao.
+     * @return Colección de usuarios.
+     */
     private MongoCollection<Usuario> getColleccion() {
         return this.basedatos.getCollection("usuarios", Usuario.class);
     }
 
+    /**
+     * Consulta un usuario en especifico.
+     * @param id Id del usuario a buscar.
+     * @return Usuario buscado.
+     */
     @Override
     public Usuario consultar(ObjectId id) {
         MongoCollection<Usuario> coleccion = this.getColleccion();
@@ -44,6 +56,12 @@ public class DAOUsuarios implements iDAOUsuarios {
         return listaUsuarios.get(0);
     }
 
+    /**
+     * Consulta un usuario en especifico para poder autenticar.
+     * @param usuario Nombre de usuario.
+     * @param contrasena Contraseña del usuario.
+     * @return Regresa el usuario a autenticar.
+     */
     @Override
     public Usuario consultar(String usuario, String contrasena) {
         for (Usuario user : consultarTodos()) {
@@ -55,6 +73,10 @@ public class DAOUsuarios implements iDAOUsuarios {
         return null;
     }
 
+    /**
+     * Consulta todos los usuarios.
+     * @return Lista con todos los usuarios.
+     */
     @Override
     public List<Usuario> consultarTodos() {
         MongoCollection<Usuario> coleccion = this.getColleccion();
@@ -64,6 +86,10 @@ public class DAOUsuarios implements iDAOUsuarios {
         return usuarios;
     }
 
+    /**
+     * Consulta todos los usuarios que sean transportadoras.
+     * @return Lista con todos los usuarios que son transportadoras.
+     */
     @Override
     public List<Usuario> consultarTransportadoras() {
         MongoCollection<Usuario> coleccion = this.getColleccion();

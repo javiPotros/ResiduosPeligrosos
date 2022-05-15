@@ -22,7 +22,6 @@ public class DAOResiduos implements iDAOResiduos {
 
     /**
      * Constructor por defecto de la clase de acceso a datos.
-     *
      * @param conexionBD Conexión a la base de datos.
      */
     public DAOResiduos(IConexionBD conexionBD) {
@@ -32,7 +31,6 @@ public class DAOResiduos implements iDAOResiduos {
 
     /**
      * Obtiene la colección designada a la dao.
-     *
      * @return Colección de residuos.
      */
     private MongoCollection<Residuo> getColleccion() {
@@ -41,7 +39,6 @@ public class DAOResiduos implements iDAOResiduos {
 
     /**
      * Agrega un residuo.
-     *
      * @param residuo Residuo a agregar.
      */
     @Override
@@ -52,7 +49,6 @@ public class DAOResiduos implements iDAOResiduos {
 
     /**
      * Consulta todos los residuos.
-     *
      * @return Lista con todos los residuos.
      */
     @Override
@@ -66,7 +62,6 @@ public class DAOResiduos implements iDAOResiduos {
 
     /**
      * Consulta un residuo en especifico.
-     *
      * @param id Id del residuo a buscar.
      * @return Residuo buscado.
      */
@@ -87,7 +82,6 @@ public class DAOResiduos implements iDAOResiduos {
 
     /**
      * Consulta todos los residuos por productor.
-     *
      * @param idProductora Id de la productora.
      * @return Lista con todos los residuos filtrados por productor.
      */

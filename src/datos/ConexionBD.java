@@ -22,7 +22,6 @@ public class ConexionBD implements IConexionBD {
 
     /**
      * Crea la conexión a la base de datos de Mongo.
-     *
      * @return Referencia a la base de datos de Mongo.
      */
     @Override
