@@ -12,39 +12,42 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
- *
- * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
+ * Configura una conexión a la base de datos.
  */
 public class ConexionBD implements IConexionBD {
 
     private static final String HOST = "localhost";
     private static final int PUERTO = 27017;
     private static final String BASE_DATOS = "residuos";
-    
+
+    /**
+     * Crea la conexión a la base de datos de Mongo.
+     *
+     * @return Referencia a la base de datos de Mongo.
+     */
     @Override
     public MongoDatabase crearConexion() {
-        try{
+        try {
             //CONFIGURACIÓN PARA QUE MONGODRIVE REALICE EL MAPEO DE POJOS AUMATICAMENTE
             CodecRegistry pojoCodecRegistry = fromProviders(PojoCodecProvider.builder().automatic(true).build());
-            
+
             CodecRegistry codecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), pojoCodecRegistry);
-            
-            ConnectionString cadenaConexion = new ConnectionString("mongodb://"+HOST+"/"+PUERTO);
-            
+
+            ConnectionString cadenaConexion = new ConnectionString("mongodb://" + HOST + "/" + PUERTO);
+
             MongoClientSettings clientsSettings = MongoClientSettings.builder()
-                .applyConnectionString(cadenaConexion)
-                .codecRegistry(codecRegistry)
-                .build();
-            
+                    .applyConnectionString(cadenaConexion)
+                    .codecRegistry(codecRegistry)
+                    .build();
+
             MongoClient clienteMongo = MongoClients.create(clientsSettings);
-            
+
             MongoDatabase baseDatos = clienteMongo.getDatabase(BASE_DATOS);
-            
-            return baseDatos;           
-        }catch(Exception ex){
+
+            return baseDatos;
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
             return null;
         }
     }
-    
 }

@@ -26,7 +26,7 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
         this.fTransporte = fTransporte;
 
         try {
-            this.listaTraslados = fNegocios.consultarTrasladosAsignados();
+            this.listaTraslados = fNegocios.consultarTrasladosAsignados(this.usuario.getId());
         } catch (Exception e) {
             this.mostrarErrorConsulta();
             return;

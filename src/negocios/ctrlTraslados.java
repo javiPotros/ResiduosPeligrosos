@@ -44,7 +44,7 @@ public class ctrlTraslados {
         return daoTraslados.consultarPendientes();
     }
     
-    public List<Traslado> consultarAsignados() {
-        return daoTraslados.consultarAsignados();
+    public List<Traslado> consultarAsignados(ObjectId idTransportadora) {
+        return daoTraslados.consultarAsignados(idTransportadora);
     }
 }

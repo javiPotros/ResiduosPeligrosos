@@ -41,7 +41,7 @@ public interface iNegocios {
 
     public List<Traslado> consultarTrasladosPendientes();
     
-    public List<Traslado> consultarTrasladosAsignados();
+    public List<Traslado> consultarTrasladosAsignados(ObjectId idTransportadora);
 
     public Usuario consultarUsuario(ObjectId id);
 

@@ -15,14 +15,17 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
- *
- * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
+ * Clase de acceso a datos con respecto a los traslados.
  */
 public class DAOTraslados implements iDAOTraslados {
 
     private MongoDatabase basedatos;
     private IConexionBD conexionBD;
 
+    /**
+     * Constructor por defecto de la clase de acceso a datos.
+     * @param conexionBD Conexión a la base de datos.
+     */
     public DAOTraslados(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
         this.basedatos = this.conexionBD.crearConexion();
@@ -92,14 +95,15 @@ public class DAOTraslados implements iDAOTraslados {
     }
     
     @Override
-    public List<Traslado> consultarAsignados() {
+    public List<Traslado> consultarAsignados(ObjectId idTransportadora) {
         MongoCollection<Traslado> coleccion = this.getColleccion();
         List<Traslado> listaTraslados = new LinkedList<>();
         List<Document> etapas = new ArrayList<>();
 
         etapas.add(new Document(
                 "$match", new Document()
-                        .append("estado", "asignado")));
+                        .append("estado", "asignado")
+                        .append("idTransportadora", idTransportadora)));
 
         coleccion.aggregate(etapas).into(listaTraslados);
         return listaTraslados;
