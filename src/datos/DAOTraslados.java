@@ -90,5 +90,18 @@ public class DAOTraslados implements iDAOTraslados {
         coleccion.aggregate(etapas).into(listaTraslados);
         return listaTraslados;
     }
+    
+    @Override
+    public List<Traslado> consultarAsignados() {
+        MongoCollection<Traslado> coleccion = this.getColleccion();
+        List<Traslado> listaTraslados = new LinkedList<>();
+        List<Document> etapas = new ArrayList<>();
 
+        etapas.add(new Document(
+                "$match", new Document()
+                        .append("estado", "asignado")));
+
+        coleccion.aggregate(etapas).into(listaTraslados);
+        return listaTraslados;
+    }
 }

@@ -97,6 +97,11 @@ public class FNegocios implements iNegocios {
     }
 
     @Override
+    public List<Traslado> consultarTrasladosAsignados() {
+        return cTraslados.consultarAsignados();
+    }
+    
+    @Override
     public Usuario consultarUsuario(ObjectId id) {
         return cUsuarios.consultar(id);
     }

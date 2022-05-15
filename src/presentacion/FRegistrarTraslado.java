@@ -17,15 +17,16 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
     private JDesktopPane desktop;
     private List<Traslado> listaTraslados;
 
-    public FRegistrarTraslado(FNegocios fNegocios, Usuario usuario, JDesktopPane desktop) {
+    public FRegistrarTraslado(FNegocios fNegocios, Usuario usuario, JDesktopPane desktop, FTransporte fTransporte) {
         initComponents();
 
         this.fNegocios = fNegocios;
         this.usuario = usuario;
         this.desktop = desktop;
+        this.fTransporte = fTransporte;
 
         try {
-            this.listaTraslados = fNegocios.consultarTraslados();
+            this.listaTraslados = fNegocios.consultarTrasladosAsignados();
         } catch (Exception e) {
             this.mostrarErrorConsulta();
             return;
@@ -156,6 +157,7 @@ public class FRegistrarTraslado extends javax.swing.JInternalFrame {
                 FTransporte fTransporte = new FTransporte(fNegocios, usuario, idTraslado);
                 desktop.add(fTransporte);
                 fTransporte.setVisible(true);
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "No se puede abrir la misma ventana dos veces",
                         "Información UI", JOptionPane.WARNING_MESSAGE);

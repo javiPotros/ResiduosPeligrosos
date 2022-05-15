@@ -44,4 +44,7 @@ public class ctrlTraslados {
         return daoTraslados.consultarPendientes();
     }
     
+    public List<Traslado> consultarAsignados() {
+        return daoTraslados.consultarAsignados();
+    }
 }
