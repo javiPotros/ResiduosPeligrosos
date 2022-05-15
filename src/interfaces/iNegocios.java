@@ -22,9 +22,9 @@ public interface iNegocios {
     public List<Quimico> consultarQuimicos();
 
     public void agregarResiduo(Residuo residuo);
-    
+
     public Residuo consultarResiduo(ObjectId id);
-    
+
     public List<Residuo> consultarResiduos();
 
     public List<Residuo> consultarResiduosPorProductor(ObjectId idProductora);
@@ -36,21 +36,23 @@ public interface iNegocios {
     public void actualizarTrasladoPendiente(Document traslado, String residuo);
 
     public List<Traslado> consultarTraslados();
-    
+
     public Traslado consultarTraslado(ObjectId id);
 
     public List<Traslado> consultarTrasladosPendientes();
-    
+
     public List<Traslado> consultarTrasladosAsignados(ObjectId idTransportadora);
+
+    public void eliminarTraslado(ObjectId id);
 
     public Usuario consultarUsuario(ObjectId id);
 
     public Usuario consultarUsuario(String usuario, String contrasena);
 
     public List<Usuario> consultarUsuarios();
-    
+
     public List<Usuario> consultarUsuariosTransportadoras();
-    
+
     public List<Transporte> consultarTransportes();
 
 }

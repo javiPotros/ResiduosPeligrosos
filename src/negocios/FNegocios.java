@@ -102,6 +102,11 @@ public class FNegocios implements iNegocios {
     }
     
     @Override
+    public void eliminarTraslado(ObjectId id){
+        cTraslados.eliminar(id);
+    }
+    
+    @Override
     public Usuario consultarUsuario(ObjectId id) {
         return cUsuarios.consultar(id);
     }

@@ -17,6 +17,8 @@ public interface iDAOTraslados {
     
     public void actualizarResiduos(Document traslado, String residuo);
     
+    public void eliminar(ObjectId id);
+    
     public Traslado consultar(ObjectId id);
     
     public List<Traslado> consultarTodos();

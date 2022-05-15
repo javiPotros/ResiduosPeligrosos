@@ -19,14 +19,16 @@ public class FSolicitud extends javax.swing.JInternalFrame {
     private FNegocios fNegocios;
     private Usuario usuario;
     private Traslado traslado;
+    private FSolicitudesTraslados fSolicitudesTraslados;
     private List<Usuario> listaTransportadoras;
     private List<Traslado> listaTransportadorasSeleccionados;
 
-    public FSolicitud(FNegocios fNegocios, Usuario usuario, ObjectId idTraslado) {
+    public FSolicitud(FNegocios fNegocios, Usuario usuario, ObjectId idTraslado, FSolicitudesTraslados fSolicitudesTraslados) {
         initComponents();
 
         this.fNegocios = fNegocios;
         this.usuario = usuario;
+        this.fSolicitudesTraslados = fSolicitudesTraslados;
         this.traslado = this.fNegocios.consultarTraslado(idTraslado);
         this.txtProductor.setText(fNegocios.consultarUsuario(traslado.getResiduo().getIdProductora()).getNombre());
         this.txtFechaSolicitada.setText(traslado.getFechaSolicitada().toString());
@@ -58,7 +60,7 @@ public class FSolicitud extends javax.swing.JInternalFrame {
     private void llenarTablaTransportadorasSeleccionados() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTransportodasSeleccionadas.getModel();
         modeloTabla.setRowCount(0);
-        
+
         listaTransportadorasSeleccionados.forEach(transportadora -> {
             Usuario transpor = fNegocios.consultarUsuario(transportadora.getIdTransportadora());
             Object[] fila = new Object[3];
@@ -87,22 +89,22 @@ public class FSolicitud extends javax.swing.JInternalFrame {
     }
 
     private void eliminarTransportadora() {
-//        ObjectId id = getTransportadoraSeleccionadoAgregados();
-//
-//        if (id != null) {
-//            Usuario transportadora = fNegocios.consultarUsuario(id);
-//            if (residuo != null) {
-//                for (Iterator<Traslado> i = listaResiduosSeleccionados.iterator(); i.hasNext();) {
-//                    Traslado tras = i.next();
-//                    if (tras.getResiduo().getId() == id) {
-//                        this.listaResiduos.add(tras.getResiduo());
-//                        i.remove();
-//                        this.llenarTablaResiduos();
-//                        this.llenarTablaResiduosSeleccionados();
-//                    }
-//                }
-//            }
-//        }
+        ObjectId id = getTransportadoraSeleccionadoAgregados();
+
+        if (id != null) {
+            Usuario transportadora = fNegocios.consultarUsuario(id);
+            if (transportadora != null) {
+                for (Iterator<Traslado> i = listaTransportadorasSeleccionados.iterator(); i.hasNext();) {
+                    Traslado tras = i.next();
+                    if (tras.getIdTransportadora().equals(id)) {
+                        this.listaTransportadoras.add(fNegocios.consultarUsuario(id));
+                        i.remove();
+                        this.llenarTablaTransportadoras();
+                        this.llenarTablaTransportadorasSeleccionados();
+                    }
+                }
+            }
+        }
     }
 
     private ObjectId getTransportadoraSeleccionadoBuscados() {
@@ -122,8 +124,8 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         if (indiceFilaSeleccionada != -1) {
             DefaultTableModel modelo = (DefaultTableModel) this.tblTransportodasSeleccionadas.getModel();
             int indiceColumnaId = 0;
-            ObjectId idTransporteSeleccionado = (ObjectId) modelo.getValueAt(indiceFilaSeleccionada, indiceColumnaId);
-            return idTransporteSeleccionado;
+            ObjectId idTransportadoraSeleccionado = (ObjectId) modelo.getValueAt(indiceFilaSeleccionada, indiceColumnaId);
+            return idTransportadoraSeleccionado;
         } else {
             return null;
         }
@@ -389,17 +391,20 @@ public class FSolicitud extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (validarCampos()) {
-            List<ObjectId> listaIdsTraslados = new ArrayList<>();
+            Float cantidadTransportadora = this.traslado.getCantidad() / listaTransportadorasSeleccionados.size();
 
-//            for (Usuario transportadora : listaTransportadorasSeleccionados) {
-//                listaIdsTraslados.add(transportadora.getId());
-//            }
-//            traslado.setIdTransportadoras(listaIdsTraslados);
-            traslado.setEstado("asignado");
-            traslado.setCantidad(null);
-            this.fNegocios.actualizarTraslado(traslado);
+            for (Traslado transportadora : listaTransportadorasSeleccionados) {
+                transportadora.setCantidad(cantidadTransportadora);
+                transportadora.setEstado("asignado");
+                traslado.setCantidad(null);
+                this.fNegocios.agregarTraslado(transportadora);
+            }
+            fNegocios.eliminarTraslado(this.traslado.getId());
             JOptionPane.showMessageDialog(this, "Se ha asignado el traslado",
-                    "Aignación Traslado", JOptionPane.INFORMATION_MESSAGE);
+                    "Asignación Traslado", JOptionPane.INFORMATION_MESSAGE);
+            this.fSolicitudesTraslados.llenarTablaTraslados();
+            this.setVisible(false);
+            this.dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 

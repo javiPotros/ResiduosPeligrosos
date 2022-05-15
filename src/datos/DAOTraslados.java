@@ -1,9 +1,11 @@
 package datos;
 
+import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.result.DeleteResult;
 import dominio.Traslado;
 import interfaces.IConexionBD;
 import interfaces.iDAOTraslados;
@@ -24,6 +26,7 @@ public class DAOTraslados implements iDAOTraslados {
 
     /**
      * Constructor por defecto de la clase de acceso a datos.
+     *
      * @param conexionBD Conexión a la base de datos.
      */
     public DAOTraslados(IConexionBD conexionBD) {
@@ -46,6 +49,16 @@ public class DAOTraslados implements iDAOTraslados {
         MongoCollection<Traslado> collection = this.getColleccion();
         Bson filtro = eq("_id", traslado.getId());
         collection.replaceOne(filtro, traslado);
+    }
+    
+    @Override
+    public void eliminar(ObjectId id) {
+        MongoCollection<Traslado> coleccion = this.getColleccion();
+        Bson query = eq("_id", id);
+        try {
+            DeleteResult result = coleccion.deleteOne(query);
+        } catch (MongoException me) {
+        }
     }
 
     @Override
@@ -93,7 +106,7 @@ public class DAOTraslados implements iDAOTraslados {
         coleccion.aggregate(etapas).into(listaTraslados);
         return listaTraslados;
     }
-    
+
     @Override
     public List<Traslado> consultarAsignados(ObjectId idTransportadora) {
         MongoCollection<Traslado> coleccion = this.getColleccion();

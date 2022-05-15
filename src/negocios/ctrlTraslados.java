@@ -32,6 +32,10 @@ public class ctrlTraslados {
         daoTraslados.actualizarResiduos(traslado, residuo);
     }
     
+    public void eliminar(ObjectId id){
+        daoTraslados.eliminar(id);
+    }
+    
     public Traslado consultar(ObjectId id){
         return daoTraslados.consultar(id);
     }
