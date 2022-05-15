@@ -8,25 +8,45 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
- *
- * @author Equipo 1
+ * Clase de control para la entidad 'Quimico'.
  */
 public class ctrlQuimicos {
 
     iDAOQuimicos daoQuimicos;
 
+    /**
+     * Constructor que recibe la conexión a la base de datos.
+     *
+     * @param conexionBD conexión a la base de datos
+     */
     public ctrlQuimicos(IConexionBD conexionBD) {
         daoQuimicos = new DAOQuimicos(conexionBD);
     }
 
+    /**
+     * Registra un quimico en la base de datos del sistema.
+     *
+     * @param quimico quimico a registrar
+     */
     public void agregarQuimico(Quimico quimico) {
         daoQuimicos.agregar(quimico);
     }
-    
-    public Quimico consultar(ObjectId id){
+
+    /**
+     * Consulta un quimico por su id.
+     *
+     * @param id id del quimico a consultar
+     * @return quimico que coincida con el id dado en el parámetro
+     */
+    public Quimico consultar(ObjectId id) {
         return daoQuimicos.consultar(id);
     }
 
+    /**
+     * Consulta la lista de todos los quimicos registrados.
+     *
+     * @return lista de quimicos registrados
+     */ 
     public List<Quimico> consultarTodos() {
         return daoQuimicos.consultarTodos();
     }

@@ -7,8 +7,7 @@ import javax.swing.JOptionPane;
 import negocios.FNegocios;
 
 /**
- *
- * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
+ * Form principal para los usuarios con permisos de administrador.
  */
 public class FPrincipalAdmin extends javax.swing.JFrame {
 
@@ -17,6 +16,11 @@ public class FPrincipalAdmin extends javax.swing.JFrame {
     FSolicitudesTraslados fSolicitarTraslado;
     Usuario usuario;
 
+    /**
+     * Constructor que recibe el usuario que ocupa la sesión.
+     *
+     * @param usuario usuario que accedio al sistema
+     */
     public FPrincipalAdmin(Usuario usuario) {
         //Modo pantalla completa
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -25,8 +29,7 @@ public class FPrincipalAdmin extends javax.swing.JFrame {
         this.conexionBD = new ConexionBD();
         this.fNegocios = new FNegocios(conexionBD);
         this.usuario = usuario;
-        
-     
+
         btnVerSolicitudes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mostrarPantallaSolicitudesTraslado(evt);
@@ -57,7 +60,6 @@ public class FPrincipalAdmin extends javax.swing.JFrame {
             .addGap(0, 426, Short.MAX_VALUE)
         );
 
-        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         jSeparator1.setPreferredSize(new java.awt.Dimension(10, 0));
@@ -66,17 +68,11 @@ public class FPrincipalAdmin extends javax.swing.JFrame {
         btnVerSolicitudes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/img/delivery-truck.png"))); // NOI18N
         btnVerSolicitudes.setText("Ver solicitudes");
         btnVerSolicitudes.setBorderPainted(false);
-        btnVerSolicitudes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerSolicitudes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVerSolicitudes.setFocusPainted(false);
         btnVerSolicitudes.setFocusable(false);
         btnVerSolicitudes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnVerSolicitudes.setOpaque(false);
         btnVerSolicitudes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnVerSolicitudes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerSolicitudesActionPerformed(evt);
-            }
-        });
         jToolBar1.add(btnVerSolicitudes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -98,13 +94,14 @@ public class FPrincipalAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVerSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSolicitudesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVerSolicitudesActionPerformed
-
-       
-     private void mostrarPantallaSolicitudesTraslado(java.awt.event.ActionEvent evt) {                                                 
-        if (fSolicitarTraslado == null||!fSolicitarTraslado.isVisible()) {
+    /**
+     * Muestra la pantalla de solicitudes de traslados que se encuentran
+     * pendientes.
+     *
+     * @param evt
+     */
+    private void mostrarPantallaSolicitudesTraslado(java.awt.event.ActionEvent evt) {
+        if (fSolicitarTraslado == null || !fSolicitarTraslado.isVisible()) {
             fSolicitarTraslado = new FSolicitudesTraslados(fNegocios, usuario, desktop);
             desktop.add(fSolicitarTraslado);
             fSolicitarTraslado.setVisible(true);

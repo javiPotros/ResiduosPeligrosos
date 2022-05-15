@@ -7,8 +7,7 @@ import javax.swing.JOptionPane;
 import negocios.FNegocios;
 
 /**
- *
- * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
+ * Form de inicio de sesión para usuarios registrados en la base de datos.
  */
 public class FIniciarSesion extends javax.swing.JFrame {
 
@@ -96,6 +95,12 @@ public class FIniciarSesion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento para el tecleo en el campo de usuario, muestra un mensaje avisando
+     * que solamente se pueden utilizar letras.
+     *
+     * @param evt
+     */
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
         if (!Character.isLetter(evt.getKeyChar())
                 && !(evt.getKeyChar() == KeyEvent.VK_SPACE)
@@ -105,6 +110,10 @@ public class FIniciarSesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
+    /**
+     * Evento para 
+     * @param evt 
+     */
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         Usuario usuario = fNegocios.consultarUsuario(txtUsuario.getText(), txtContrasena.getText());
 
@@ -120,7 +129,7 @@ public class FIniciarSesion extends javax.swing.JFrame {
                     FPrincipalAdmin fPrincipalAdmin = new FPrincipalAdmin(usuario);
                     fPrincipalAdmin.setVisible(true);
                     this.dispose();
-                    break;  
+                    break;
                 case "transportadora":
                     FPrincipalTransportadora fPrincipalTransportadora = new FPrincipalTransportadora(usuario);
                     fPrincipalTransportadora.setVisible(true);
@@ -131,7 +140,7 @@ public class FIniciarSesion extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usario y/o Clave incorrecta");
         }
-        
+
 
     }//GEN-LAST:event_btnIngresarActionPerformed
 

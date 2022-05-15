@@ -10,8 +10,7 @@ import negocios.FNegocios;
 import org.bson.types.ObjectId;
 
 /**
- *
- * @author Equipo 1
+ * Form de asignación de solicitudes pendientes.
  */
 public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
 
@@ -21,6 +20,14 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
     private List<Traslado> listaTraslados;
     private JDesktopPane desktop;
 
+    /**
+     * Constructor que recibe la fachada de negocios, usuario y el dektop donde
+     * se muestran las pantallas.
+     *
+     * @param fNegocios fachada de control
+     * @param usuario usuario con credenciales
+     * @param desktop desktop principal
+     */
     public FSolicitudesTraslados(FNegocios fNegocios, Usuario usuario, JDesktopPane desktop) {
         initComponents();
 
@@ -37,6 +44,10 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
         this.llenarTablaTraslados();
     }
 
+    /**
+     * Llena la tabla con todas las solicitudes de traslados que se ecuentren
+     * pendientes.
+     */
     public void llenarTablaTraslados() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblSolicitudes.getModel();
         modeloTabla.setRowCount(0);
@@ -50,7 +61,12 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
             modeloTabla.addRow(fila);
         });
     }
-    
+
+    /**
+     * Obtiene el id del traslado seleccionado de la tabla.
+     *
+     * @return id del traslado seleccionado
+     */
     private ObjectId getTrasladoSeleccionadoBuscados() {
         int indiceFilaSeleccionada = this.tblSolicitudes.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
@@ -62,8 +78,7 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
             return null;
         }
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -148,6 +163,11 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre una nueva ventana donde se asignaran las empresas transportadoras.
+     *
+     * @param evt
+     */
     private void btnAsignarEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEmpresasActionPerformed
         ObjectId idTraslado = getTrasladoSeleccionadoBuscados();
 
@@ -166,6 +186,12 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAsignarEmpresasActionPerformed
 
+    /**
+     * Muestra un mensaje de error avisando que hubo un error en la consulta.
+     */
+    private void mostrarErrorConsulta() {
+        JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de solicitudes registradoa", "Error Consultar Residuos", JOptionPane.ERROR_MESSAGE);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEmpresas;
@@ -175,7 +201,4 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblSolicitudes;
     // End of variables declaration//GEN-END:variables
 
-    private void mostrarErrorConsulta() {
-        JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de residuos registrados", "Error Consultar Residuos", JOptionPane.ERROR_MESSAGE);
-    }
 }
