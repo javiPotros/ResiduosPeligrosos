@@ -13,6 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import negocios.FNegocios;
 import org.bson.types.ObjectId;
 
+/**
+ * Formulario donde se muestran los transportes y se termina de registrar el
+ * residuo.
+ */
 public class FTransporte extends javax.swing.JInternalFrame {
 
     private FNegocios fNegocios;
@@ -21,6 +25,13 @@ public class FTransporte extends javax.swing.JInternalFrame {
     private List<Transporte> listaTransportes;
     private List<Transporte> listaTransportesSeleccionados;
 
+    /**
+     * Constructor por defecto del formulario.
+     *
+     * @param fNegocios Referencia a la fachada de negocios.
+     * @param usuario Usuario logueado al formulario.
+     * @param idTraslado Id del traslado seleccionado anteriormente.
+     */
     public FTransporte(FNegocios fNegocios, Usuario usuario, ObjectId idTraslado) {
         initComponents();
 
@@ -39,10 +50,16 @@ public class FTransporte extends javax.swing.JInternalFrame {
         this.llenarTablaTransportes();
     }
 
+    /**
+     * Muestra un error en la consulta en caso de que exista.
+     */
     private void mostrarErrorConsulta() {
         JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de transportes", "Error Consultar Transportes", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Llena la tabla de los transportes.
+     */
     private void llenarTablaTransportes() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTransportes.getModel();
         modeloTabla.setRowCount(0);
@@ -57,6 +74,9 @@ public class FTransporte extends javax.swing.JInternalFrame {
         });
     }
 
+    /**
+     * Llena la tabla de los transportes seleccionados.
+     */
     private void llenarTablaTransportesSeleccionados() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTransportesSeleccionados.getModel();
         modeloTabla.setRowCount(0);
@@ -71,7 +91,11 @@ public class FTransporte extends javax.swing.JInternalFrame {
         });
     }
 
-    private ObjectId getTransportesSeleccionadoBuscados() {
+    /**
+     * Devuelve el id del transporte seleccionado.
+     * @return Id del transporte seleccionado.
+     */
+    private ObjectId getTransporteSeleccionadoBuscado() {
         int indiceFilaSeleccionada = this.tblTransportes.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
             DefaultTableModel modelo = (DefaultTableModel) this.tblTransportes.getModel();
@@ -83,7 +107,11 @@ public class FTransporte extends javax.swing.JInternalFrame {
         }
     }
 
-    private ObjectId getTransporteSeleccionadoAgregados() {
+    /**
+     * Devuelve el id del transporte agregado seleccionado.
+     * @return Id del transporte agregado seleccionado.
+     */
+    private ObjectId getTransporteSeleccionadoAgregado() {
         int indiceFilaSeleccionada = this.tblTransportesSeleccionados.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
             DefaultTableModel modelo = (DefaultTableModel) this.tblTransportesSeleccionados.getModel();
@@ -95,8 +123,11 @@ public class FTransporte extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Agrega un transporte a la parte de seleccionados de la lista.
+     */
     public void agregarTransporte() {
-        ObjectId id = getTransportesSeleccionadoBuscados();
+        ObjectId id = getTransporteSeleccionadoBuscado();
 
         for (Iterator<Transporte> i = listaTransportes.iterator(); i.hasNext();) {
             Transporte transporte = i.next();
@@ -110,8 +141,11 @@ public class FTransporte extends javax.swing.JInternalFrame {
         this.llenarTablaTransportesSeleccionados();
     }
 
+    /**
+     * Remueve un transporte de la parte de seleccionados de la lista.
+     */
     public void eliminarTransporte() {
-        ObjectId id = getTransporteSeleccionadoAgregados();
+        ObjectId id = getTransporteSeleccionadoAgregado();
 
         for (Iterator<Transporte> i = listaTransportesSeleccionados.iterator(); i.hasNext();) {
             Transporte transporte = i.next();
@@ -125,6 +159,10 @@ public class FTransporte extends javax.swing.JInternalFrame {
         this.llenarTablaTransportes();
     }
 
+    /**
+     * Valida todos los campos a llenar por el usuario.
+     * @return Confirmación de la validación.
+     */
     public boolean validarCampos() {
         if (txtKilometros.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "El campo de los klómetros recorridos se encuentra vacío", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
@@ -178,6 +216,9 @@ public class FTransporte extends javax.swing.JInternalFrame {
         return true;
     }
 
+    /**
+     * Limpia las entradas del formulario.
+     */
     public void limpiarFormulario() {
         this.txtKilometros.setText("");
         this.txtCosto.setText("");
@@ -453,6 +494,10 @@ public class FTransporte extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Botón final de registrar.
+     * @param evt 
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if (validarCampos()) {
             this.traslado.setKmRecorridos(Float.parseFloat(this.txtKilometros.getText()));
@@ -471,7 +516,7 @@ public class FTransporte extends javax.swing.JInternalFrame {
                 listaIdsTraslados.add(transporte.getId());
             });
             this.traslado.setIdTransportes(listaIdsTraslados);
-            
+
             this.fNegocios.actualizarTraslado(traslado);
             JOptionPane.showMessageDialog(this, "Se ha registrado el traslado", "Registro Traslados", JOptionPane.INFORMATION_MESSAGE);
             this.limpiarFormulario();
@@ -479,14 +524,26 @@ public class FTransporte extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    /**
+     * Botón de cancelar.
+     * @param evt 
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.limpiarFormulario();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Botón de agregar.
+     * @param evt 
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         this.agregarTransporte();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Botón de eliminar.
+     * @param evt 
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         this.eliminarTransporte();
     }//GEN-LAST:event_btnEliminarActionPerformed

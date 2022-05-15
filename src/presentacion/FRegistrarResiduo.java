@@ -14,7 +14,8 @@ import negocios.FNegocios;
 import org.bson.types.ObjectId;
 
 /**
- * 
+ * Form de registro de residuo.
+ *
  * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
  */
 public class FRegistrarResiduo extends javax.swing.JInternalFrame {
@@ -40,6 +41,9 @@ public class FRegistrarResiduo extends javax.swing.JInternalFrame {
         this.llenarTablaQuimicos();
     }
 
+    /**
+     * Llena tabla de quimicos disponibles.
+     */
     private void llenarTablaQuimicos() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblQuimicos.getModel();
         modeloTabla.setRowCount(0);
@@ -51,6 +55,9 @@ public class FRegistrarResiduo extends javax.swing.JInternalFrame {
         });
     }
 
+    /**
+     * Llena tabla de quimicos seleccionados.
+     */
     private void llenarTablaQuimicosSeleccionados() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblQuimicosSeleccionados.getModel();
         modeloTabla.setRowCount(0);
@@ -62,6 +69,11 @@ public class FRegistrarResiduo extends javax.swing.JInternalFrame {
         });
     }
 
+    /**
+     * Obtiene el id del quimico seleccionado.
+     *
+     * @return id del quimico seleccionado
+     */
     private ObjectId getQuimicoSeleccionadoBuscados() {
         int indiceFilaSeleccionada = this.tblQuimicos.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
@@ -74,6 +86,11 @@ public class FRegistrarResiduo extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Obtiene el id del quimico seleccionado.
+     *
+     * @return id del quimico seleccionado
+     */
     private ObjectId getQuimicoSeleccionadoAgregados() {
         int indiceFilaSeleccionada = this.tblQuimicosSeleccionados.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
@@ -86,6 +103,12 @@ public class FRegistrarResiduo extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Valida los campos del formulario, que la lista no este vacia y que la
+     * fecha sea mayor a la actual
+     *
+     * @return true si la información de los campos son válidos
+     */
     public boolean validarCampos() {
         Pattern pattern = Pattern.compile("^[0-9]{6,6}$");
         boolean validacion = pattern.matcher(txtCodigo.getText()).matches();
@@ -123,29 +146,35 @@ public class FRegistrarResiduo extends javax.swing.JInternalFrame {
         return true;
     }
 
+    /**
+     * Agrega un quimico a la lista de selección
+     */
     public void agregarQuimico() {
         ObjectId id = getQuimicoSeleccionadoBuscados();
-        
-        for(Iterator<Quimico> i= listaQuimicos.iterator();i.hasNext();){
+
+        for (Iterator<Quimico> i = listaQuimicos.iterator(); i.hasNext();) {
             Quimico quim = i.next();
-            if(quim.getId()==id){
-                  this.listaQuimicosSeleccionados.add(quim);
-                  i.remove();
+            if (quim.getId() == id) {
+                this.listaQuimicosSeleccionados.add(quim);
+                i.remove();
             }
         }
-        
+
         this.llenarTablaQuimicos();
         this.llenarTablaQuimicosSeleccionados();
     }
 
+    /**
+     * Elimina un quimico de la lista de selección.
+     */
     public void eliminarQuimico() {
         ObjectId id = getQuimicoSeleccionadoAgregados();
-        
-        for(Iterator<Quimico> i= listaQuimicosSeleccionados.iterator();i.hasNext();){
+
+        for (Iterator<Quimico> i = listaQuimicosSeleccionados.iterator(); i.hasNext();) {
             Quimico quim = i.next();
-            if(quim.getId()==id){
-                  this.listaQuimicos.add(quim);
-                  i.remove();
+            if (quim.getId() == id) {
+                this.listaQuimicos.add(quim);
+                i.remove();
             }
         }
 
@@ -153,10 +182,16 @@ public class FRegistrarResiduo extends javax.swing.JInternalFrame {
         this.llenarTablaQuimicos();
     }
 
+    /**
+     * muestra error de consulta de la lista de quimicos
+     */
     public final void mostrarErrorConsulta() {
         JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de quimicos disponibles", "Error Consultar Quimicos", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Borra los datos introducidos en los campos del formulario.
+     */
     public void limpiarFormulario() {
         this.txtCodigo.setText("");
         this.txtNombre.setText("");

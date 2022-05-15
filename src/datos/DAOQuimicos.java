@@ -22,7 +22,6 @@ public class DAOQuimicos implements iDAOQuimicos {
 
     /**
      * Constructor por defecto de la clase de acceso a datos.
-     *
      * @param conexionBD Conexión a la base de datos.
      */
     public DAOQuimicos(IConexionBD conexionBD) {
@@ -32,7 +31,6 @@ public class DAOQuimicos implements iDAOQuimicos {
 
     /**
      * Obtiene la colección designada a la dao.
-     *
      * @return Colección de químicos.
      */
     private MongoCollection<Quimico> getColleccion() {
@@ -41,7 +39,6 @@ public class DAOQuimicos implements iDAOQuimicos {
 
     /**
      * Agrega un químico.
-     *
      * @param quimico Químico a agregar.
      */
     @Override
@@ -55,7 +52,6 @@ public class DAOQuimicos implements iDAOQuimicos {
 
     /**
      * Consulta un químico en especifico.
-     *
      * @param id Id del químico a buscar.
      * @return Químico buscado.
      */
@@ -75,7 +71,6 @@ public class DAOQuimicos implements iDAOQuimicos {
 
     /**
      * Consulta todos los químicos.
-     *
      * @return Lista con todos los químicos.
      */
     @Override

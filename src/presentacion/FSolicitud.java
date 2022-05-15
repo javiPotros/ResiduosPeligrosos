@@ -11,8 +11,7 @@ import negocios.FNegocios;
 import org.bson.types.ObjectId;
 
 /**
- *
- * @author Equipo 1
+ * Form de asignación de empresas transportadoras para solicitud seleccionada.
  */
 public class FSolicitud extends javax.swing.JInternalFrame {
 
@@ -23,6 +22,15 @@ public class FSolicitud extends javax.swing.JInternalFrame {
     private List<Usuario> listaTransportadoras;
     private List<Traslado> listaTransportadorasSeleccionados;
 
+    /**
+     * Constructor que recibe fNegocios, usuario, id de traslado y form de
+     * solicitudes.
+     *
+     * @param fNegocios fachada de negocios
+     * @param usuario usuario autenticado
+     * @param idTraslado id de traslado a asignar
+     * @param fSolicitudesTraslados form de solicitudes
+     */
     public FSolicitud(FNegocios fNegocios, Usuario usuario, ObjectId idTraslado, FSolicitudesTraslados fSolicitudesTraslados) {
         initComponents();
 
@@ -45,6 +53,9 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         this.llenarTablaTransportadoras();
     }
 
+    /**
+     * Llena la tabla con todas las empresas transportadoras registradas.
+     */
     private void llenarTablaTransportadoras() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTransportadorasDisponibles.getModel();
         modeloTabla.setRowCount(0);
@@ -57,6 +68,10 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         });
     }
 
+    /**
+     * Llena la tabla con todas las empresas transportadoras seleccionadas por
+     * el usuario.
+     */
     private void llenarTablaTransportadorasSeleccionados() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTransportodasSeleccionadas.getModel();
         modeloTabla.setRowCount(0);
@@ -71,6 +86,9 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         });
     }
 
+    /**
+     * Agrega la empresa transportadora seleccioada a la lista de seleccionadas.
+     */
     public void agregarTransportadora() {
         ObjectId id = getTransportadoraSeleccionadoBuscados();
 
@@ -88,6 +106,10 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Elimina la empresa transportadora seleccioada de la lista de
+     * seleccionadas.
+     */
     private void eliminarTransportadora() {
         ObjectId id = getTransportadoraSeleccionadoAgregados();
 
@@ -107,6 +129,12 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Obtiene el id de la transportadora seleccionada de la lista de
+     * disponibles.
+     *
+     * @return id de la transportadora seleccionada
+     */
     private ObjectId getTransportadoraSeleccionadoBuscados() {
         int indiceFilaSeleccionada = this.tblTransportadorasDisponibles.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
@@ -119,6 +147,11 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Obtiene el id de la transportadora seleccionada de la lista de agregadas.
+     *
+     * @return id de la transportadora seleccionada
+     */
     private ObjectId getTransportadoraSeleccionadoAgregados() {
         int indiceFilaSeleccionada = this.tblTransportodasSeleccionadas.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
@@ -131,6 +164,11 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Valida que los campos y selecciones de transportadoras sean correctas.
+     *
+     * @return
+     */
     public boolean validarCampos() {
         if (this.listaTransportadorasSeleccionados.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Se debe seleccionar por lo menos una empresa transportadora",
@@ -389,6 +427,11 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Asigna las empresas seleccioandas al traslado pendiente.
+     *
+     * @param evt
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (validarCampos()) {
             Float cantidadTransportadora = this.traslado.getCantidad() / listaTransportadorasSeleccionados.size();
@@ -408,20 +451,40 @@ public class FSolicitud extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    /**
+     * Agrega una transportadora a la lista de selección.
+     *
+     * @param evt
+     */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         this.agregarTransportadora();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    /**
+     * Cierra la ventana actual.
+     *
+     * @param evt
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Elimina una transportadora de la lista de selección
+     *
+     * @param evt
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         this.eliminarTransportadora();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-
+    /**
+     * Muestra un mensaje de error avisando que hubo un error en la consulta.
+     */
+    private void mostrarErrorConsulta() {
+        JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de transportadoras registradas", "Error Consultar Residuos", JOptionPane.ERROR_MESSAGE);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JToggleButton btnCancelar;
@@ -445,7 +508,4 @@ public class FSolicitud extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtResiduo;
     // End of variables declaration//GEN-END:variables
 
-    private void mostrarErrorConsulta() {
-        JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de transportadoras registradas", "Error Consultar Residuos", JOptionPane.ERROR_MESSAGE);
-    }
 }

@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Objects;
 import org.bson.types.ObjectId;
 
+/**
+ * Representa a un residuo
+ *  @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
+ */
 public class Residuo {
 
  
@@ -15,10 +19,20 @@ public class Residuo {
     private ObjectId idProductora;
     private List<Quimico> quimicos;
 
+    /**
+     * Constructor por defecto
+     */
     public Residuo() {
         quimicos = new ArrayList<>();
     }
 
+    /**
+     * Constructor de la clase
+     * @param id identificaedor del residuo
+     * @param nombre nombre del residuo
+     * @param codigo código del residuo
+     * @param idProductora id de la productora del residuo
+     */
     public Residuo(ObjectId id, String nombre, String codigo, ObjectId idProductora) {
         this.id = id;
         this.nombre = nombre;
@@ -27,6 +41,14 @@ public class Residuo {
         this.quimicos = new ArrayList<>();
     }
 
+     /**
+     * Constructor de la clase
+     * @param id identificaedor del residuo
+     * @param nombre nombre del residuo
+     * @param codigo código del residuo
+     * @param tratamiento tratamiento que se le hará al residuo
+     * @param idProductora id de la productora del residuo
+     */
     public Residuo(ObjectId id, String nombre, String codigo, Tratamiento tratamiento, ObjectId idProductora) {
         this.id = id;
         this.nombre = nombre;
@@ -36,57 +58,106 @@ public class Residuo {
         quimicos = new ArrayList<>();
     }
 
+    /**
+     * Devuelve el id del residuo
+     * @return id del residuo
+     */
     public ObjectId getId() {
         return id;
     }
 
+    /**
+     * Modifica el id del residuo
+     * @param id id del residuo
+     */
     public void setId(ObjectId id) {
         this.id = id;
     }
 
-    public void generarId(){
-        this.id = new ObjectId();
-    }
+    /**
+     * Obtiene el nombre del residuo
+     * @return nombre del residuo
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Modifica el nombre del residuo
+     * @param nombre nombre del residuo
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Devuelve el código del residuo
+     * @return código del residuo
+     */
     public String getCodigo() {
         return codigo;
     }
 
+    /**
+     * modifica el código del residuo
+     * @param codigo código del residuo
+     */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     * Devuelve el tratamiento del residuo
+     * @return tratamiento del residuo
+     */
     public Tratamiento getTratamiento() {
         return tratamiento;
     }
 
+    /**
+     * Modifica el tratamiento de este residuo
+     * @param tratamiento tratamiento del residuo
+     */
     public void setTratamiento(Tratamiento tratamiento) {
         this.tratamiento = tratamiento;
     }
 
+    /**
+     * Devielve el id de la productora del residuo
+     * @return id de la productora
+     */
     public ObjectId getIdProductora() {
         return idProductora;
     }
 
+    /**
+     * Modifica el id de la productora del residuo
+     * @param idProductora id de la productora
+     */
     public void setIdProductora(ObjectId idProductora) {
         this.idProductora = idProductora;
     }
 
+    /**
+     * obtiene la lista de quimicos que componen al residuo
+     * @return lista de quimicos del residuo
+     */
     public List<Quimico> getQuimicos() {
         return quimicos;
     }
 
+    /**
+     * Modifica la lista de quimicos que componen al residuo
+     * @param quimicos lista de quimicos del residuo
+     */
     public void setQuimicos(List<Quimico> quimicos) {
         this.quimicos = quimicos;
     }
 
+    /**
+     * Regresa el hashcode de este residuo
+     * @return hashcode de este residuo
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -94,6 +165,11 @@ public class Residuo {
         return hash;
     }
 
+     /**
+     * compara si el objeto dado es igual a este residuo
+     * @param obj objeto a comparar
+     * @return true si los objetos son iguales
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -112,6 +188,10 @@ public class Residuo {
         return true;
     }
 
+    /**
+     * Regresa una cadena con los atributos del residuo
+     * @return cadena con sus atributos
+     */
     @Override
     public String toString() {
         return "Residuo{" + "id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + ", tratamiento=" + tratamiento + ", idProductora=" + idProductora + ", quimicos=" + quimicos + '}';

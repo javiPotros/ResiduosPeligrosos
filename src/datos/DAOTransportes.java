@@ -28,7 +28,6 @@ public class DAOTransportes implements iDAOTransportes {
 
     /**
      * Obtiene la colección designada a la dao.
-     * 
      * @return Colección de transportes.
      */
     private MongoCollection<Transporte> getColeccion() {

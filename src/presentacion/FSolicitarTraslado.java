@@ -14,6 +14,7 @@ import negocios.FNegocios;
 import org.bson.types.ObjectId;
 
 /**
+ * Pantalla donde el productor solicita traslados de sus residuo
  *
  * @author Equipo 1
  */
@@ -24,6 +25,12 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
     private List<Traslado> listaResiduosSeleccionados;
     private Usuario usuario;
 
+    /**
+     * Constrctor de la clase
+     *
+     * @param fNegocios objeto negocio
+     * @param usuario usuario que inicio sesión
+     */
     public FSolicitarTraslado(FNegocios fNegocios, Usuario usuario) {
         initComponents();
         setClosable(true);
@@ -42,6 +49,9 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
 
     }
 
+    /**
+     * Llena la trabla de residuos
+     */
     private void llenarTablaResiduos() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblResiduos.getModel();
         modeloTabla.setRowCount(0);
@@ -53,6 +63,9 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
         });
     }
 
+    /**
+     * Llena la tabla de los residuos que fueron seleccionados
+     */
     private void llenarTablaResiduosSeleccionados() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblResiduosSeleccionados.getModel();
         modeloTabla.setRowCount(0);
@@ -65,6 +78,11 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
         });
     }
 
+    /**
+     * Obtiene el residuo que fue seleccionado de la lista de residuos
+     *
+     * @return el id del residuo seleccionado
+     */
     private ObjectId getResiduoSeleccionadoBuscados() {
         int indiceFilaSeleccionada = this.tblResiduos.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
@@ -77,6 +95,11 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Obtiene el residuo que fue seleccionado de la lista de residuos agregados
+     *
+     * @return el id del residuo seleccionado
+     */
     private ObjectId getResiduoSeleccionadoAgregados() {
         int indiceFilaSeleccionada = this.tblResiduosSeleccionados.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
@@ -300,6 +323,11 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
         this.limpiarFormulario();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * agrega las solicitudes de traslados.
+     *
+     * @param evt evento del boton
+     */
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         if (validarCampos()) {
             for (Traslado traslado : listaResiduosSeleccionados) {
@@ -339,10 +367,16 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtProductor;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * muestra error de consulta de la lista de residuos
+     */
     private void mostrarErrorConsulta() {
         JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de residuos registrados", "Error Consultar Residuos", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Agrega un residuo a la lista de residuos seleccionados
+     */
     private void agregarResiduo() {
         String[] s = {"Kg", "L"};
         JComboBox medida = new JComboBox(s);
@@ -380,6 +414,9 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
 
     }
 
+    /**
+     * Ellimina un residuo de la lista de residuos seleccionados
+     */
     private void eliminarResiduo() {
         ObjectId id = getResiduoSeleccionadoAgregados();
 
@@ -399,6 +436,12 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
         }
     }
 
+    /**
+     * Valida los campos del formulario, que la lista no este vacia y que la
+     * fecha sea mayor a la actual
+     *
+     * @return true si la información de los campos son válidos
+     */
     private boolean validarCampos() {
         if (this.pckFecha.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Se debe seleccionar una fecha para la solicitud",
@@ -418,11 +461,14 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
         return true;
     }
 
+   /**
+    * Borra los datos introducidos en los campos del formulario.
+    */
     private void limpiarFormulario() {
         pckFecha.setDate(null);
         listaResiduosSeleccionados.clear();
         llenarTablaResiduosSeleccionados();
-        this.listaResiduos = fNegocios.consultarResiduos();
+        this.listaResiduos = fNegocios.consultarResiduosPorProductor(usuario.getId());
         llenarTablaResiduos();
     }
 }

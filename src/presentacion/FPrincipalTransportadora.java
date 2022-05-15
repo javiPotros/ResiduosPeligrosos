@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import negocios.FNegocios;
 
+/**
+ * Form principal que se muestra a la transportadora.
+ */
 public class FPrincipalTransportadora extends javax.swing.JFrame {
 
     ConexionBD conexionBD;
@@ -16,6 +19,10 @@ public class FPrincipalTransportadora extends javax.swing.JFrame {
     FTransporte fTransporte;
     Usuario usuario;
 
+    /**
+     * Constructor por defecto del form.
+     * @param usuario Usuario logueado.
+     */
     public FPrincipalTransportadora(Usuario usuario) {
         //Modo pantalla completa
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -86,7 +93,11 @@ public class FPrincipalTransportadora extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//|| fTransporte == null || !fTransporte.isVisible()
+    
+    /**
+     * Botón para iniciar el caso de uso de Registrar Traslado.
+     * @param evt 
+     */
     private void mostrarPantallaRegistrarTraslado(java.awt.event.ActionEvent evt) {
         if (fRegistrarTraslado == null || !fRegistrarTraslado.isVisible()) {
             fRegistrarTraslado = new FRegistrarTraslado(fNegocios, usuario, desktop, fTransporte);

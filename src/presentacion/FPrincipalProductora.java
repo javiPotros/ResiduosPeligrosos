@@ -7,8 +7,7 @@ import javax.swing.JOptionPane;
 import negocios.FNegocios;
 
 /**
- *
- * @author Equipo 1 - Residuos Peligrsosos. Id's: 215058, 228359, 229333
+ * Form principal para los usuarios con permisos de administrador.
  */
 public class FPrincipalProductora extends javax.swing.JFrame {
 
@@ -26,13 +25,13 @@ public class FPrincipalProductora extends javax.swing.JFrame {
         this.conexionBD = new ConexionBD();
         this.fNegocios = new FNegocios(conexionBD);
         this.usuario = usuario;
-        
+
         btnRegistrarResiduo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mostrarPantallaRegistroResiduos(evt);
             }
         });
-       
+
         btnSolicitarTraslado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mostrarPantallaSolicitarTraslado(evt);
@@ -119,12 +118,17 @@ public class FPrincipalProductora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarResiduoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarResiduoActionPerformed
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarResiduoActionPerformed
 
-    private void mostrarPantallaRegistroResiduos(java.awt.event.ActionEvent evt) {                                                 
-        if (fRegistroResiduo == null||!fRegistroResiduo.isVisible()) {
+    /**
+     * Muestra la pantalla de registro de residuo.
+     *
+     * @param evt
+     */
+    private void mostrarPantallaRegistroResiduos(java.awt.event.ActionEvent evt) {
+        if (fRegistroResiduo == null || !fRegistroResiduo.isVisible()) {
             fRegistroResiduo = new FRegistrarResiduo(fNegocios, usuario);
             desktop.add(fRegistroResiduo);
             fRegistroResiduo.setVisible(true);
@@ -133,9 +137,13 @@ public class FPrincipalProductora extends javax.swing.JFrame {
                     "Información UI", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
-     private void mostrarPantallaSolicitarTraslado(java.awt.event.ActionEvent evt) {                                                 
-        if (fSolicitarTraslado == null||!fSolicitarTraslado.isVisible()) {
+
+    /**
+     * Muestra pantalla de solicitar traslado.
+     * @param evt 
+     */
+    private void mostrarPantallaSolicitarTraslado(java.awt.event.ActionEvent evt) {
+        if (fSolicitarTraslado == null || !fSolicitarTraslado.isVisible()) {
             fSolicitarTraslado = new FSolicitarTraslado(fNegocios, usuario);
             desktop.add(fSolicitarTraslado);
             fSolicitarTraslado.setVisible(true);

@@ -111,7 +111,7 @@ public class FIniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     /**
-     * Evento para 
+     * Evento para seleccionar la pantalla a mostrar segun el tipo de usuario.
      * @param evt 
      */
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
@@ -138,7 +138,7 @@ public class FIniciarSesion extends javax.swing.JFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usario y/o Clave incorrecta");
+            JOptionPane.showMessageDialog(rootPane, "Usuario y/o Clave incorrecta");
         }
 
 
