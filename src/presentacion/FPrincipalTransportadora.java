@@ -13,6 +13,7 @@ public class FPrincipalTransportadora extends javax.swing.JFrame {
     FRegistrarResiduo fRegistroResiduo;
     FSolicitarTraslado fSolicitarTraslado;
     FRegistrarTraslado fRegistrarTraslado;
+    FTransporte fTransporte;
     Usuario usuario;
 
     public FPrincipalTransportadora(Usuario usuario) {
@@ -85,10 +86,10 @@ public class FPrincipalTransportadora extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//|| fTransporte == null || !fTransporte.isVisible()
     private void mostrarPantallaRegistrarTraslado(java.awt.event.ActionEvent evt) {
         if (fRegistrarTraslado == null || !fRegistrarTraslado.isVisible()) {
-            fRegistrarTraslado = new FRegistrarTraslado(fNegocios, usuario, desktop);
+            fRegistrarTraslado = new FRegistrarTraslado(fNegocios, usuario, desktop, fTransporte);
             desktop.add(fRegistrarTraslado);
             fRegistrarTraslado.setVisible(true);
         } else {

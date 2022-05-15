@@ -23,4 +23,5 @@ public interface iDAOTraslados {
     
     public List<Traslado> consultarPendientes();
     
+    public List<Traslado> consultarAsignados();
 }

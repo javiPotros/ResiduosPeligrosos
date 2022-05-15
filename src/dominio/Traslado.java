@@ -17,7 +17,8 @@ public class Traslado {
     private Double costo;
     private String estado;
     private Residuo residuo;
-    private List<ObjectId> traslados;
+    private ObjectId idTransportadora;
+    private List<ObjectId> idTransportes;
 
     public Traslado() {
     }
@@ -26,7 +27,7 @@ public class Traslado {
         this.id = id;
     }
 
-    public Traslado(ObjectId id, Integer numTransportes, String destino, LocalDate fechaSolicitada, LocalDate fechaLlegada, Float cantidad, Float kmRecorridos, Double costo, String estado, Residuo residuo, List<ObjectId> traslados) {
+    public Traslado(ObjectId id, Integer numTransportes, String destino, LocalDate fechaSolicitada, LocalDate fechaLlegada, Float cantidad, Float kmRecorridos, Double costo, String estado, Residuo residuo, ObjectId idTransportadora, List<ObjectId> idTransportes) {
         this.id = id;
         this.numTransportes = numTransportes;
         this.destino = destino;
@@ -37,7 +38,8 @@ public class Traslado {
         this.costo = costo;
         this.estado = estado;
         this.residuo = residuo;
-        this.traslados = traslados;
+        this.idTransportadora = idTransportadora;
+        this.idTransportes = idTransportes;
     }
 
     public ObjectId getId() {
@@ -120,12 +122,20 @@ public class Traslado {
         this.residuo = residuo;
     }
 
-    public List<ObjectId> getTraslados() {
-        return traslados;
+    public List<ObjectId> getIdTransportes() {
+        return idTransportes;
     }
 
-    public void setTraslados(List<ObjectId> traslados) {
-        this.traslados = traslados;
+    public ObjectId getIdTransportadora() {
+        return idTransportadora;
+    }
+
+    public void setIdTransportadora(ObjectId idTransportadora) {
+        this.idTransportadora = idTransportadora;
+    }
+
+    public void setIdTransportes(List<ObjectId> idTransportes) {
+        this.idTransportes = idTransportes;
     }
 
     @Override
@@ -155,7 +165,7 @@ public class Traslado {
 
     @Override
     public String toString() {
-        return "Traslado{" + "id=" + id + ", numTransportes=" + numTransportes + ", destino=" + destino + ", fechaSolicitada=" + fechaSolicitada + ", fechaLlegada=" + fechaLlegada + ", cantidad=" + cantidad + ", kmRecorridos=" + kmRecorridos + ", costo=" + costo + ", estado=" + estado + ", residuo=" + residuo + '}';
+        return "Traslado{" + "id=" + id + ", numTransportes=" + numTransportes + ", destino=" + destino + ", fechaSolicitada=" + fechaSolicitada + ", fechaLlegada=" + fechaLlegada + ", cantidad=" + cantidad + ", kmRecorridos=" + kmRecorridos + ", costo=" + costo + ", estado=" + estado + ", residuo=" + residuo + ", idTransportadora=" + idTransportadora + ", idTransportes=" + idTransportes + '}';
     }
 
 }

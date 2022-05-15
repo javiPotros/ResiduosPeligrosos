@@ -27,14 +27,14 @@ public class FTransporte extends javax.swing.JInternalFrame {
         this.fNegocios = fNegocios;
         this.usuario = usuario;
         this.traslado = this.fNegocios.consultarTraslado(idTraslado);
-        
+
         try {
             this.listaTransportes = fNegocios.consultarTransportes();
         } catch (Exception e) {
             this.mostrarErrorConsulta();
             return;
         }
-        
+
         this.listaTransportesSeleccionados = new ArrayList<>();
         this.llenarTablaTransportes();
     }
@@ -42,7 +42,7 @@ public class FTransporte extends javax.swing.JInternalFrame {
     private void mostrarErrorConsulta() {
         JOptionPane.showMessageDialog(this, "No se ha podido acceder a la lista de transportes", "Error Consultar Transportes", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     private void llenarTablaTransportes() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTransportes.getModel();
         modeloTabla.setRowCount(0);
@@ -94,38 +94,87 @@ public class FTransporte extends javax.swing.JInternalFrame {
             return null;
         }
     }
-    
+
     public void agregarTransporte() {
         ObjectId id = getTransportesSeleccionadoBuscados();
-        
-        for(Iterator<Transporte> i= listaTransportes.iterator();i.hasNext();){
+
+        for (Iterator<Transporte> i = listaTransportes.iterator(); i.hasNext();) {
             Transporte transporte = i.next();
-            if(transporte.getId()==id){
-                  this.listaTransportesSeleccionados.add(transporte);
-                  i.remove();
+            if (transporte.getId() == id) {
+                this.listaTransportesSeleccionados.add(transporte);
+                i.remove();
             }
         }
-        
+
         this.llenarTablaTransportes();
         this.llenarTablaTransportesSeleccionados();
     }
 
     public void eliminarTransporte() {
         ObjectId id = getTransporteSeleccionadoAgregados();
-        
-        for(Iterator<Transporte> i= listaTransportesSeleccionados.iterator();i.hasNext();){
+
+        for (Iterator<Transporte> i = listaTransportesSeleccionados.iterator(); i.hasNext();) {
             Transporte transporte = i.next();
-            if(transporte.getId()==id){
-                  this.listaTransportes.add(transporte);
-                  i.remove();
+            if (transporte.getId() == id) {
+                this.listaTransportes.add(transporte);
+                i.remove();
             }
         }
 
         this.llenarTablaTransportesSeleccionados();
         this.llenarTablaTransportes();
     }
-    
+
     public boolean validarCampos() {
+        if (txtKilometros.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de los klómetros recorridos se encuentra vacío", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (this.txtCosto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo del costo se encuentra vacío", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (this.dpFecha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de la fecha de llegada se encuentra vacío", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (this.txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo del nombre se encuentra vacío", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (this.txtDescripcion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo de la descripción se encuentra vacío", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (this.txtNombre.getText().length() > 100) {
+            JOptionPane.showMessageDialog(this, "El campo del nombre no es válido (mayor a 100)", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (this.txtDescripcion.getText().length() > 280) {
+            JOptionPane.showMessageDialog(this, "El campo de la descripción no es válido (mayor a 280)", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (this.dpFecha.getDate().isBefore(this.traslado.getFechaSolicitada())) {
+            JOptionPane.showMessageDialog(this, "La fecha de llegada no puede ser antes que la fecha solicitada", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (listaTransportesSeleccionados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se han seleccionado transportes", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        try {
+            if (Float.parseFloat(this.txtKilometros.getText()) < 0 || Float.parseFloat(this.txtKilometros.getText()) > 1000) {
+                JOptionPane.showMessageDialog(this, "Los kilómetros recorridos no pueden ser negativos ni mayores a 1000", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Los kilómetros recorridos deben de estar definidos como un valor numérico", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        try {
+            if (Float.parseFloat(this.txtCosto.getText()) < 0) {
+                JOptionPane.showMessageDialog(this, "El costo no puede ser negativo", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "El costo debe de estar definido como un valor numérico", "Error Registrar Traslado", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         return true;
     }
 
@@ -409,13 +458,14 @@ public class FTransporte extends javax.swing.JInternalFrame {
             this.traslado.setKmRecorridos(Float.parseFloat(this.txtKilometros.getText()));
             this.traslado.setCosto(Double.parseDouble(this.txtCosto.getText()));
             this.traslado.setFechaLlegada(this.dpFecha.getDate());
-            
+            this.traslado.setEstado("registrado");
+
             Residuo residuo = this.traslado.getResiduo();
             Tratamiento tratamiento = new Tratamiento();
             tratamiento.setNombre(this.txtNombre.getText());
             tratamiento.setDescripcion(this.txtDescripcion.getText());
             residuo.setTratamiento(tratamiento);
-            
+
             List<ObjectId> listaIdsTraslados = new ArrayList<>();
             this.listaTransportesSeleccionados.forEach(transporte -> {
                 listaIdsTraslados.add(transporte.getId());

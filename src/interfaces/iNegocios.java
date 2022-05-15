@@ -40,6 +40,8 @@ public interface iNegocios {
     public Traslado consultarTraslado(ObjectId id);
 
     public List<Traslado> consultarTrasladosPendientes();
+    
+    public List<Traslado> consultarTrasladosAsignados();
 
     public Usuario consultarUsuario(ObjectId id);
 

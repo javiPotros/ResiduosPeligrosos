@@ -38,7 +38,7 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
     }
 
     private void llenarTablaTraslados() {
-        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblTraslados.getModel();
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblSolicitudes.getModel();
         modeloTabla.setRowCount(0);
         listaTraslados.forEach(traslado -> {
             Object[] fila = new Object[5];
@@ -50,23 +50,11 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
             modeloTabla.addRow(fila);
         });
     }
-
-//    private void llenarTablaResiduosSeleccionados() {
-//        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblSolicitudes.getModel();
-//        modeloTabla.setRowCount(0);
-//        listaResiduosSeleccionados.forEach(traslado -> {
-//            Object[] fila = new Object[3];
-//            fila[0] = traslado.getResiduo().getId();
-//            fila[1] = traslado.getResiduo().getNombre();
-//            fila[2] = traslado.getCantidad();
-//            modeloTabla.addRow(fila);
-//        });
-//    }
     
     private ObjectId getTrasladoSeleccionadoBuscados() {
-        int indiceFilaSeleccionada = this.tblTraslados.getSelectedRow();
+        int indiceFilaSeleccionada = this.tblSolicitudes.getSelectedRow();
         if (indiceFilaSeleccionada != -1) {
-            DefaultTableModel modelo = (DefaultTableModel) this.tblTraslados.getModel();
+            DefaultTableModel modelo = (DefaultTableModel) this.tblSolicitudes.getModel();
             int indiceColumnaId = 0;
             ObjectId idClienteSeleccionado = (ObjectId) modelo.getValueAt(indiceFilaSeleccionada, indiceColumnaId);
             return idClienteSeleccionado;
@@ -74,32 +62,22 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
             return null;
         }
     }
-
-//    private ObjectId getResiduoSeleccionadoAgregados() {
-//        int indiceFilaSeleccionada = this.tblSolicitudes.getSelectedRow();
-//        if (indiceFilaSeleccionada != -1) {
-//            DefaultTableModel modelo = (DefaultTableModel) this.tblSolicitudes.getModel();
-//            int indiceColumnaId = 0;
-//            ObjectId idClienteSeleccionado = (ObjectId) modelo.getValueAt(indiceFilaSeleccionada, indiceColumnaId);
-//            return idClienteSeleccionado;
-//        } else {
-//            return null;
-//        }
-//    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         pnlSolicitudes = new javax.swing.JScrollPane();
-        tblTraslados = new javax.swing.JTable();
-        lblBuscadorQuimicos = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JButton();
+        tblSolicitudes = new javax.swing.JTable();
+        lblSolicitudes = new javax.swing.JLabel();
+        btnAsignarEmpresas = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tblTraslados.setModel(new javax.swing.table.DefaultTableModel(
+        tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -122,15 +100,15 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        pnlSolicitudes.setViewportView(tblTraslados);
+        pnlSolicitudes.setViewportView(tblSolicitudes);
 
-        lblBuscadorQuimicos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblBuscadorQuimicos.setText("Solicitudes");
+        lblSolicitudes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSolicitudes.setText("Solicitudes");
 
-        btnAgregar.setText("Asignar empresas");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnAsignarEmpresas.setText("Asignar empresas");
+        btnAsignarEmpresas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                btnAsignarEmpresasActionPerformed(evt);
             }
         });
 
@@ -143,12 +121,12 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBuscadorQuimicos)
+                    .addComponent(lblSolicitudes)
                     .addComponent(pnlSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAsignarEmpresas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
@@ -158,25 +136,24 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(lblBuscadorQuimicos)
+                        .addComponent(lblSolicitudes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAsignarEmpresas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnAsignarEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEmpresasActionPerformed
         ObjectId idTraslado = getTrasladoSeleccionadoBuscados();
 
         if (idTraslado != null) {
             if (fSolicitud == null || !fSolicitud.isVisible()) {
-
-                FSolicitud fSolicitud = new FSolicitud(fNegocios, usuario, idTraslado);
+                this.fSolicitud = new FSolicitud(fNegocios, usuario, idTraslado);
                 desktop.add(fSolicitud);
                 fSolicitud.setVisible(true);
             } else {
@@ -187,15 +164,15 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Se debe de seleccionar una solicitud",
                     "Información Registro Traslados", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnAsignarEmpresasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAsignarEmpresas;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblBuscadorQuimicos;
+    private javax.swing.JLabel lblSolicitudes;
     private javax.swing.JScrollPane pnlSolicitudes;
-    private javax.swing.JTable tblTraslados;
+    private javax.swing.JTable tblSolicitudes;
     // End of variables declaration//GEN-END:variables
 
     private void mostrarErrorConsulta() {
