@@ -420,7 +420,7 @@ public class FTransporte extends javax.swing.JInternalFrame {
             this.listaTransportesSeleccionados.forEach(transporte -> {
                 listaIdsTraslados.add(transporte.getId());
             });
-            this.traslado.setTraslados(listaIdsTraslados);
+            this.traslado.setIdTransportes(listaIdsTraslados);
             
             this.fNegocios.actualizarTraslado(traslado);
             JOptionPane.showMessageDialog(this, "Se ha registrado el traslado", "Registro Traslados", JOptionPane.INFORMATION_MESSAGE);
