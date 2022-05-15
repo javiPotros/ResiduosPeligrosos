@@ -37,7 +37,7 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
         this.llenarTablaTraslados();
     }
 
-    private void llenarTablaTraslados() {
+    public void llenarTablaTraslados() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblSolicitudes.getModel();
         modeloTabla.setRowCount(0);
         listaTraslados.forEach(traslado -> {
@@ -153,7 +153,7 @@ public class FSolicitudesTraslados extends javax.swing.JInternalFrame {
 
         if (idTraslado != null) {
             if (fSolicitud == null || !fSolicitud.isVisible()) {
-                this.fSolicitud = new FSolicitud(fNegocios, usuario, idTraslado);
+                this.fSolicitud = new FSolicitud(fNegocios, usuario, idTraslado, this);
                 desktop.add(fSolicitud);
                 fSolicitud.setVisible(true);
             } else {

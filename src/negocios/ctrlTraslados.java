@@ -32,6 +32,10 @@ public class ctrlTraslados {
         return daoTraslados.consultar(id);
     }
     
+    public void eliminar(ObjectId id){
+        daoTraslados.eliminar(id);
+    }
+    
     public List<Traslado> consultarTodos() {
         return daoTraslados.consultarTodos();
     }
