@@ -124,16 +124,16 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
         if (id != null) {
             String cantidad = JOptionPane.showInputDialog(this, items, "Introduzca una cantidad", JOptionPane.INFORMATION_MESSAGE);
             Float cant;
+
             try {
-                if (cantidad.isEmpty()) {
+                if (cantidad == null || cantidad.isEmpty()) {
                     throw new NumberFormatException("Se debe introducir una cantidad");
                 }
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException | NullPointerException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(),
                         "Error Solicitar Traslado", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
             try {
                 cant = Float.parseFloat(cantidad);
             } catch (NumberFormatException ex) {
