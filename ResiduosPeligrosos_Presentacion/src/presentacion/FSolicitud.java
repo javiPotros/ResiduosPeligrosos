@@ -495,7 +495,7 @@ public class FSolicitud extends javax.swing.JInternalFrame {
     }
 
     private void mostrarMensajeConfirmacion() {
-        JOptionPane.showMessageDialog(this, "Se ha asignado el traslado con exito", "Asignación Traslado", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Se ha asignado el traslado con éxito", "Asignación Traslado", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
