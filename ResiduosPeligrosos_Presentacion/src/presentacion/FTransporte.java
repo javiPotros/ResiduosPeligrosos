@@ -518,7 +518,7 @@ public class FTransporte extends javax.swing.JInternalFrame {
             this.traslado.setIdTransportes(listaIdsTraslados);
 
             this.fNegocios.actualizarTraslado(traslado);
-            JOptionPane.showMessageDialog(this, "Se ha registrado el traslado", "Registro Traslados", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se ha registrado el traslado con exito", "Registro Traslados", JOptionPane.INFORMATION_MESSAGE);
             this.limpiarFormulario();
             this.dispose();
         }

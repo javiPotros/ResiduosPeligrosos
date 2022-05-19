@@ -366,19 +366,17 @@ public class FSolicitud extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlEmpresasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlEmpresasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lblEmpresasDisponibles))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblEmpresasDisponibles1)
-                        .addGap(0, 162, Short.MAX_VALUE))
-                    .addComponent(pnlEmpresasSeleccionadas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(lblEmpresasDisponibles1)
+                    .addComponent(pnlEmpresasSeleccionadas, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +398,7 @@ public class FSolicitud extends javax.swing.JInternalFrame {
                                 .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 30, Short.MAX_VALUE))
+                        .addGap(0, 22, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblInformacionResiduo)
                         .addGap(23, 23, 23)
@@ -442,18 +440,14 @@ public class FSolicitud extends javax.swing.JInternalFrame {
             Float cant = Float.parseFloat(cantidadMedida[0]);
             Float cantidadTransportadora = cant / listaTransportadorasSeleccionados.size();
 
-            if (listaTransportadorasSeleccionados.size() >= 2) {
-                for (Traslado transportadora : listaTransportadorasSeleccionados) {
-                    transportadora.setCantidad(cantidadTransportadora + " " + cantidadMedida[1]);
-                    transportadora.setEstado("asignado");
-                    this.traslado.setCantidad(null);
-                    this.fNegocios.agregarTraslado(transportadora);
-                }
-                this.fNegocios.eliminarTraslado(this.traslado.getId());
-            } else {
-                this.traslado.setEstado("asignado");
-                this.fNegocios.actualizarTraslado(this.traslado);
+            for (Traslado transportadora : listaTransportadorasSeleccionados) {
+                transportadora.setCantidad(cantidadTransportadora + " " + cantidadMedida[1]);
+                transportadora.setEstado("asignado");
+                this.traslado.setCantidad(null);
+                this.fNegocios.agregarTraslado(transportadora);
             }
+            
+            this.fNegocios.eliminarTraslado(this.traslado.getId());
             this.mostrarMensajeConfirmacion();
             this.fSolicitudesTraslados.llenarTablaTraslados();
             this.setVisible(false);
@@ -501,7 +495,7 @@ public class FSolicitud extends javax.swing.JInternalFrame {
     }
 
     private void mostrarMensajeConfirmacion() {
-        JOptionPane.showMessageDialog(this, "Se ha asignado el traslado", "Asignación Traslado", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Se ha asignado el traslado con exito", "Asignación Traslado", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

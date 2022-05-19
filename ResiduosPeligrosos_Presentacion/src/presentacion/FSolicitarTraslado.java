@@ -247,7 +247,7 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
      * muestra un mensaje de confirmación al agregar el residuo
      */
     public final void mostrarMensajeConfirmacion() {
-        JOptionPane.showMessageDialog(this, "El residuo se ha agregado con éxito", "Agregar Residuo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "La solicitud se ha registrado con éxito", "Agregar Residuo", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @SuppressWarnings("unchecked")
