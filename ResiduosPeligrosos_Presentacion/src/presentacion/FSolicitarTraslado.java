@@ -474,19 +474,24 @@ public class FSolicitarTraslado extends javax.swing.JInternalFrame {
      * @param evt evento del boton
      */
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
-        for (Traslado traslado : listaResiduosSeleccionados) {
-            traslado.setFechaSolicitada(pckFecha.getDate());
-            if (!validarCampos(traslado)) {
-                return;
-            }
-        }
+        if (!listaResiduosSeleccionados.isEmpty()) {
             for (Traslado traslado : listaResiduosSeleccionados) {
                 traslado.setFechaSolicitada(pckFecha.getDate());
-                this.fNegocios.agregarTraslado(traslado);
+                if (!validarCampos(traslado)) {
+                    return;
+                }
             }
-            this.mostrarMensajeConfirmacion();
-            this.limpiarFormulario();
-        
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay residuos seleccionados", "Error Solicitar traslado", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        for (Traslado traslado : listaResiduosSeleccionados) {
+            traslado.setFechaSolicitada(pckFecha.getDate());
+            this.fNegocios.agregarTraslado(traslado);
+        }
+        this.mostrarMensajeConfirmacion();
+        this.limpiarFormulario();
+
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
