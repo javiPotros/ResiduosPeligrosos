@@ -1,3 +1,12 @@
-/nbproject/private/
-/build/
-/dist/
+/ResiduosPeligrosos_Controles/build/
+/ResiduosPeligrosos_Controles/dist/
+/ResiduosPeligrosos_Controles/nbproject/private/
+/ResiduosPeligrosos_Datos/build/
+/ResiduosPeligrosos_Datos/dist/
+/ResiduosPeligrosos_Datos/nbproject/private/
+/ResiduosPeligrosos_Dominio/build/
+/ResiduosPeligrosos_Dominio/dist/
+/ResiduosPeligrosos_Dominio/nbproject/private/
+/ResiduosPeligrosos_Presentacion/build/
+/ResiduosPeligrosos_Presentacion/dist/
+/ResiduosPeligrosos_Presentacion/nbproject/private/
